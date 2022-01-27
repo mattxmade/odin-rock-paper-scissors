@@ -33,3 +33,12 @@
 
 // replay game if user wants to play again
 // exit if not + thanks for playing message
+
+function computerPlay() {
+  const moveSelection = ['rock', 'paper', 'scissors'];
+
+  return moveSelection[Math.floor(Math.random() * moveSelection.length)];
+}
+
+// debugging
+// console.log(computerPlay());
