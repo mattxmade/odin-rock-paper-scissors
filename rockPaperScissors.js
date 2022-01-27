@@ -82,7 +82,7 @@ function playerSelection() {
 // debugging
 console.log(playerSelection());
 
-// 3) Input validator functions
+// 2b) Input validator functions
 function invalidMove(playerMove) {
   return playerMove === '' 
   ? playerMove = `You didn't enter a move...` 
