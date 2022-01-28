@@ -9,14 +9,15 @@ A HTML CSS JS project built around the classic game Rock Paper Scissors.</p>
 <strong>The program will:</strong>
 <ol>
   <li>Welcome user to game [ TODO ]</li>
-  <li>Play a user defined number of rounds: min 1 | max 12 [ TODO ]</li>
-  <li>Confirm number of rounds before continuing to game [ TODO ]</li>
-  <li>Handle user input choice of rock paper or scissors [ TODO ]</li>
-  <li>Determine any input errors before continuing: is user input equal to string RPS? [ TODO ]</li>
-  <li>Return a randomised computer choice of rock paper or scissors [ TODO ]</li>
-  <li>Determine a winner [ TODO ]</li>
-  <li>Log win loss draw records and track points [ TODO ]</li>
-  <li>Confirm if user would like to play again; different message if win loss or draw [ TODO ]</li>
+  <li>Play a user defined number of rounds: min 1 | max 12 [ COMPLETE ]</li>
+  <li>Confirm number of rounds before continuing to game [ COMPLETE ]</li>
+  <li>Handle user input choice of rock paper or scissors [ COMPLETE ]</li>
+  <li>Determine any input errors before continuing: is user input equal to string RPS? [ COMPLETE ]</li>
+  <li>Return a randomised computer choice of rock paper or scissors [ COMPLETE ]</li>
+  <li>Determine a winner [ COMPLETE ]</li>
+  <li>Log win loss draw records and track points [ COMPLETE ]</li>
+  <li>Confirm if user would like to play again; different message if win loss or draw [ COMPLETE ]</li>
+  <li>Check for bugs [ TODO ]</li>
 </ol>
 
 <br>
