@@ -40,7 +40,7 @@
 
 //---------------------------------------------------------------------------------
 
-// 1)
+// 1) Computer Move
 function computerPlay() {
   // moves stored inside array
   const moveSelection = ['rock', 'paper', 'scissors'];
@@ -52,14 +52,13 @@ function computerPlay() {
 // debugging
 // console.log(computerPlay());
 
-// 2) Player
+// 2) Player Move
 function playerSelection() {
   let playerMove = prompt('Rock Paper or Scissors?');
 
   // user cancelled game
   if (playerMove === null) {
-    confirm('Do you want to continue playing?') 
-    ? playerMove = prompt('Rock Paper or Scissors?')
+    confirm('Do you want to continue playing?') ? playerMove = prompt('Rock Paper or Scissors?')
     : alert('Thanks for playing!');
   }
 
@@ -228,9 +227,11 @@ function calculateScores(playerScore, comptrScore) {
   return result;
 }
 
+// newGame with welcome message
 function newGame() {
   alert('Rock Paper Scissors by mattxmade');
   game();
 }
 
+// invoke newGame function to start a new game of Rock Paper Scissors
 newGame();
