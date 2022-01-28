@@ -43,7 +43,7 @@
 // 1) Computer Move
 function computerPlay() {
   // moves stored inside array
-  const moveSelection = ['rock', 'paper', 'scissors'];
+  const moveSelection = ['Rock', 'Paper', 'Scissors'];
 
   // Math methods used to return random number 0-2 based on index position of array
   return moveSelection[Math.floor(Math.random() * moveSelection.length)];
@@ -62,19 +62,17 @@ function playerSelection() {
     : alert('Thanks for playing!');
   }
 
-  playerMove = String(playerMove);
-
-  // covert input string to lower case
-  playerMove = playerMove.toLowerCase();
+  // capitalise string for uniformity
+  playerMove = capitalise(playerMove);
 
   switch(playerMove) {
-    case 'rock':
+    case 'Rock':
       break;
 
-    case 'paper':
+    case 'Paper':
       break;
 
-    case 'scissors':
+    case 'Scissors':
       break;
 
     default:
@@ -100,6 +98,9 @@ function invalidMove(playerMove) {
 function playRound(userMove, compMove) {
   let roundWinner = '';
 
+  userMove = capitalise(userMove);
+  compMove = capitalise(compMove);
+
   // draw
   if (userMove === compMove) { 
     let winner = 'draw';
@@ -107,29 +108,29 @@ function playRound(userMove, compMove) {
   }
 
   // player wins
-  if (userMove === 'rock' && compMove === 'scissors') {
+  if (userMove === 'Rock' && compMove === 'Scissors') {
     roundWinner = 'player';
     alert(`You Won! Rock beats Scissors!`);
   }
-  else if (userMove === 'paper' && compMove === 'rock') {
+  else if (userMove === 'Paper' && compMove === 'Rock') {
     roundWinner = 'player';
     alert(`You Won! Paper beats Rock!`);
   }
-  else if (userMove === 'scissors' && compMove === 'paper') {
+  else if (userMove === 'Scissors' && compMove === 'Paper') {
     roundWinner = 'player';
     alert(`You Won! Scissors beats Paper!`);
   }
 
   // computer wins
-  if (compMove === 'rock' && userMove === 'scissors') {
+  if (compMove === 'Rock' && userMove === 'Scissors') {
     roundWinner = 'computer';
     alert(`You Lose! Rock beats Scissors`);
   }
-  else if (compMove === 'paper' && userMove === 'rock') {
+  else if (compMove === 'Paper' && userMove === 'Rock') {
     roundWinner = 'computer';
     alert(`You Lose! Paper beats Rock!`);
   }
-  else if (compMove === 'scissors' && userMove === 'paper') {
+  else if (compMove === 'Scissors' && userMove === 'Paper') {
     roundWinner = 'computer';
     alert(`You Lose! Scissors beats Paper!`);
   }
@@ -225,6 +226,16 @@ function calculateScores(playerScore, comptrScore) {
     result = `Draw Game! Would you like to play again?`;
   }
   return result;
+}
+
+// Capitalise string function
+function capitalise(string) {
+  if (typeof(string) === 'string') {
+    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+  }
+  else {
+    alert('Must be a string');
+  }
 }
 
 // newGame with welcome message
