@@ -22,6 +22,10 @@
 // Declare winner in seperate function decideWinner()
 
 // 4)
+// Create function game()
+// plays a user defined number of rounds
+
+// 5)
 // Create function decideWinner()
 // Takes two parameters: playerPoints | computerPoints
 // If playerPoints equal to computerPoints
@@ -54,8 +58,12 @@ function playerSelection() {
 
   // user cancelled game
   if (playerMove === null) {
-    confirm('Do you want to continue playing?') ? playerSelection() : alert('Thanks for playing!');
+    confirm('Do you want to continue playing?') 
+    ? playerMove = prompt('Rock Paper or Scissors?')
+    : alert('Thanks for playing!');
   }
+
+  playerMove = String(playerMove);
 
   // covert input string to lower case
   playerMove = playerMove.toLowerCase();
@@ -80,7 +88,7 @@ function playerSelection() {
 }
 
 // debugging
-console.log(playerSelection());
+//console.log(playerSelection());
 
 // 2b) Input validator functions
 function invalidMove(playerMove) {
@@ -88,3 +96,141 @@ function invalidMove(playerMove) {
   ? playerMove = `You didn't enter a move...` 
   : playerMove = `Invalid move! The input of ${playerMove} is not recognised!`;
 }
+
+// 3)
+function playRound(userMove, compMove) {
+  let roundWinner = '';
+
+  // draw
+  if (userMove === compMove) { 
+    let winner = 'draw';
+    alert(`Draw Game! ${userMove} was chosen!`); 
+  }
+
+  // player wins
+  if (userMove === 'rock' && compMove === 'scissors') {
+    roundWinner = 'player';
+    alert(`You Won! Rock beats Scissors!`);
+  }
+  else if (userMove === 'paper' && compMove === 'rock') {
+    roundWinner = 'player';
+    alert(`You Won! Paper beats Rock!`);
+  }
+  else if (userMove === 'scissors' && compMove === 'paper') {
+    roundWinner = 'player';
+    alert(`You Won! Scissors beats Paper!`);
+  }
+
+  // computer wins
+  if (compMove === 'rock' && userMove === 'scissors') {
+    roundWinner = 'computer';
+    alert(`You Lose! Rock beats Scissors`);
+  }
+  else if (compMove === 'paper' && userMove === 'rock') {
+    roundWinner = 'computer';
+    alert(`You Lose! Paper beats Rock!`);
+  }
+  else if (compMove === 'scissors' && userMove === 'paper') {
+    roundWinner = 'computer';
+    alert(`You Lose! Scissors beats Paper!`);
+  }
+  return roundWinner;
+}
+
+// debugging
+//playRound();
+
+// 4) Play a round of games
+function game(playGame = true) {
+  let roundNum = 0;
+  let rounds = prompt('How many rounds would you like play? Enter a number 1-12');
+
+  // cancel game?
+  if (rounds === null) {
+    playGame = false;
+    confirm('Keep playing?') ? game() : alert('Thanks for playing!');
+  }
+
+  // continue to game
+  if ( playGame ) {
+    let playerScore = 0;
+    let comptrScore = 0;
+
+    // convert string to number
+    rounds = Number(rounds);
+
+    // verify number of rounds meets game rules
+    if (isNaN(rounds) || rounds <= 0 || rounds > 12) {
+      alert('Must be a number between 1-12');
+      game();
+    }
+
+    // play game
+    while (roundNum < rounds) {
+
+      // user move choice | comp random move choice
+      let userMove = playerSelection();
+      let compMove = computerPlay();
+
+      // who won the round
+      roundWinner = playRound(userMove, compMove);
+
+      // round score 
+      switch(roundWinner) {
+        case 'player':
+          playerScore+=1;
+          break;
+        case 'computer':
+          comptrScore+=1;
+          break;
+      }
+
+      // move to next round
+      roundNum+=1;
+
+      // display score after each round
+      alert(`Round ${roundNum} Scores: Player ${playerScore} | Computer ${comptrScore}`);      
+    }
+
+    // score overall
+    let gameResult = calculateScores(playerScore, comptrScore);
+
+    // play again?
+    confirm(gameResult) ? game() : 'Thanks for playing!';
+
+    //presentWinner(gameResult);
+  }
+}
+
+// debugging
+//game();
+
+// 5) Scores | declare winner functions
+function calculateScores(playerScore, comptrScore) {
+  let result = '';
+
+  alert(`Final Scores: Player ${playerScore} || Computer ${comptrScore}`);
+
+  // player has most wins
+  if (playerScore > comptrScore) {
+    result = `You Won! Congrats! Would you like to play another game?`;
+  }
+
+  // computer has most wins
+  else if (playerScore < comptrScore) {
+    result = `You Lost! Unlucky! Would you like to play another game?`;
+  }
+
+  // draw
+  else {
+    result = `Draw Game! Would you like to play again?`;
+  }
+  return result;
+}
+
+function newGame() {
+  alert('Rock Paper Scissors by mattxmade');
+  game();
+}
+
+newGame();
