@@ -19,14 +19,14 @@
 // If user wins  - 1 point to player
 // If user loses - 1 point to computer
 // Track points
-// Declare winner in seperate function decideWinner()
+// Declare scores in seperate function finalScores()
 
 // 4)
 // Create function game()
 // plays a user defined number of rounds
 
 // 5)
-// Create function decideWinner()
+// Create function finalScores()
 // Takes two parameters: playerPoints | computerPoints
 // If playerPoints equal to computerPoints
     // Draw game + draw ouput message (play again?)
@@ -37,6 +37,8 @@
 
 // replay game if user wants to play again
 // exit if not + thanks for playing message
+
+// 6) Additional helper functions
 
 //---------------------------------------------------------------------------------
 
@@ -49,7 +51,7 @@ function computerPlay() {
   return moveSelection[Math.floor(Math.random() * moveSelection.length)];
 }
 
-// debugging
+// testing
 // console.log(computerPlay());
 
 // 2) Player Move
@@ -84,7 +86,7 @@ function playerSelection() {
   return playerMove.length > 8 ? playerSelection() : playerMove;
 }
 
-// debugging
+// testing
 //console.log(playerSelection());
 
 // 2b) Input validator functions
@@ -95,36 +97,56 @@ function invalidMove(playerMove) {
 }
 
 // 3)
-function playRound(userMove, compMove) {
-  let roundWinner = '';
+function playRound(rounds, roundNum) {
 
-  userMove = capitalise(userMove);
-  compMove = capitalise(compMove);
+  roundNum = roundNum +1;
+  let displayMessage = '';
+
+  switch(roundNum) {
+    case 1:
+      displayMessage = `The Game Begins: First Round of ${rounds}!`;
+      break;
+    case rounds:
+      displayMessage = 'Final Round!';
+      break;
+    default:
+      displayMessage = `Round ${roundNum}/${rounds}`;
+      break;
+  }
+
+  alert(displayMessage);
+
+  // new user move choice | new random computer move choice
+  let userMove = playerSelection();
+  let compMove = computerPlay();
+
+  // function returns this variable
+  let roundWinner = '';
 
   // draw
   if (userMove === compMove) { 
     let winner = 'draw';
-    alert(`Draw Game! ${userMove} was chosen!`); 
+    alert(`Draw Game! Both chose ${userMove}!`); 
   }
 
   // player wins
   if (userMove === 'Rock' && compMove === 'Scissors') {
     roundWinner = 'player';
-    alert(`You Won! Rock beats Scissors!`);
+    alert('You Won! Rock beats Scissors!');
   }
   else if (userMove === 'Paper' && compMove === 'Rock') {
     roundWinner = 'player';
-    alert(`You Won! Paper beats Rock!`);
+    alert('You Won! Paper beats Rock!');
   }
   else if (userMove === 'Scissors' && compMove === 'Paper') {
     roundWinner = 'player';
-    alert(`You Won! Scissors beats Paper!`);
+    alert('You Won! Scissors beats Paper!');
   }
 
   // computer wins
   if (compMove === 'Rock' && userMove === 'Scissors') {
     roundWinner = 'computer';
-    alert(`You Lose! Rock beats Scissors`);
+    alert('You Lose! Rock beats Scissors!');
   }
   else if (compMove === 'Paper' && userMove === 'Rock') {
     roundWinner = 'computer';
@@ -132,12 +154,12 @@ function playRound(userMove, compMove) {
   }
   else if (compMove === 'Scissors' && userMove === 'Paper') {
     roundWinner = 'computer';
-    alert(`You Lose! Scissors beats Paper!`);
+    alert('You Lose! Scissors beats Paper!');
   }
   return roundWinner;
 }
 
-// debugging
+// testing
 //playRound();
 
 // 4) Play a round of games
@@ -155,6 +177,7 @@ function game(playGame = true) {
   if ( playGame ) {
     let playerScore = 0;
     let comptrScore = 0;
+    let numDrawGame = 0;
 
     // convert string to number
     rounds = Number(rounds);
@@ -168,12 +191,8 @@ function game(playGame = true) {
     // play game
     while (roundNum < rounds) {
 
-      // user move choice | comp random move choice
-      let userMove = playerSelection();
-      let compMove = computerPlay();
-
       // who won the round
-      roundWinner = playRound(userMove, compMove);
+      roundWinner = playRound(rounds, roundNum);
 
       // round score 
       switch(roundWinner) {
@@ -183,30 +202,31 @@ function game(playGame = true) {
         case 'computer':
           comptrScore+=1;
           break;
+        default:
+          numDrawGame+=1;
+          break;
       }
 
       // move to next round
       roundNum+=1;
 
       // display score after each round
-      alert(`Round ${roundNum} Scores: Player ${playerScore} | Computer ${comptrScore}`);      
+      alert(`Round ${roundNum} Scores: Player ${playerScore} | Computer ${comptrScore} | Draws: ${numDrawGame}`);      
     }
 
     // score overall
-    let gameResult = calculateScores(playerScore, comptrScore);
+    let gameResult = finalScores(playerScore, comptrScore);
 
     // play again?
     confirm(gameResult) ? game() : 'Thanks for playing!';
-
-    //presentWinner(gameResult);
   }
 }
 
-// debugging
+// testing
 //game();
 
 // 5) Scores | declare winner functions
-function calculateScores(playerScore, comptrScore) {
+function finalScores(playerScore, comptrScore) {
   let result = '';
 
   alert(`Final Scores: Player ${playerScore} || Computer ${comptrScore}`);
