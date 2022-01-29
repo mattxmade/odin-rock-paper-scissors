@@ -9,7 +9,7 @@ A HTML CSS JS project built around the classic game Rock Paper Scissors.</p>
 <strong>The program will:</strong>
 <ol>
   <li>Welcome user to game [ TODO ]</li>
-  <li>Play a user defined number of rounds: min 1 | max 12 [ COMPLETE ]</li>
+  <li>Play a user defined number of rounds: min 1 | max 5 [ COMPLETE ]</li>
   <li>Confirm number of rounds before continuing to game [ COMPLETE ]</li>
   <li>Handle user input choice of rock paper or scissors [ COMPLETE ]</li>
   <li>Determine any input errors before continuing: is user input equal to string RPS? [ COMPLETE ]</li>
