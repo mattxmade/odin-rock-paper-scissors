@@ -233,12 +233,12 @@ function finalScores(playerScore, comptrScore, numDrawGame) {
 
   // player has most wins
   if (playerScore > comptrScore) {
-    result = `You Won! Congrats! Would you like to play another game?`;
+    result = 'You Won! Congrats! Would you like to play another game?';
   }
 
   // computer has most wins
   else if (playerScore < comptrScore) {
-    result = `You Lost! Unlucky! Would you like to play another game?`;
+    result = 'You Lost! Unlucky! Would you like to play another game?';
   }
 
   // draw
