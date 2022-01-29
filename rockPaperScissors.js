@@ -93,7 +93,7 @@ function playerSelection() {
 function invalidMove(playerMove) {
   return playerMove === '' 
   ? playerMove = `You didn't enter a move...` 
-  : playerMove = `Invalid move! The input of ${playerMove} is not recognised!`;
+  : playerMove = `Invalid move! The input of '${playerMove}' is not recognised!`;
 }
 
 // 3)
@@ -165,7 +165,7 @@ function playRound(rounds, roundNum) {
 // 4) Play a round of games
 function game(playGame = true) {
   let roundNum = 0;
-  let rounds = prompt('How many rounds would you like play? Enter a number 1-12');
+  let rounds = prompt('How many rounds would you like play? Enter a number 1-5');
 
   // cancel game?
   if (rounds === null) {
@@ -183,8 +183,8 @@ function game(playGame = true) {
     rounds = Number(rounds);
 
     // verify number of rounds meets game rules
-    if (isNaN(rounds) || rounds <= 0 || rounds > 12) {
-      alert('Must be a number between 1-12');
+    if (isNaN(rounds) || rounds <= 0 || rounds > 5) {
+      alert('Must be a number between 1-5');
       game();
     }
 
@@ -211,11 +211,11 @@ function game(playGame = true) {
       roundNum+=1;
 
       // display score after each round
-      alert(`Round ${roundNum} Scores: Player ${playerScore} | Computer ${comptrScore} | Draws: ${numDrawGame}`);      
+      alert(`Round ${roundNum} Scores: | Player: ${playerScore} | Computer: ${comptrScore} | Draws: ${numDrawGame} |`);      
     }
 
     // score overall
-    let gameResult = finalScores(playerScore, comptrScore);
+    let gameResult = finalScores(playerScore, comptrScore, numDrawGame);
 
     // play again?
     confirm(gameResult) ? game() : 'Thanks for playing!';
@@ -226,10 +226,10 @@ function game(playGame = true) {
 //game();
 
 // 5) Scores | declare winner functions
-function finalScores(playerScore, comptrScore) {
+function finalScores(playerScore, comptrScore, numDrawGame) {
   let result = '';
 
-  alert(`Final Scores: Player ${playerScore} || Computer ${comptrScore}`);
+  alert(`Final Scores: | Player: ${playerScore} | Computer: ${comptrScore} | Draws: ${numDrawGame} |`);
 
   // player has most wins
   if (playerScore > comptrScore) {
