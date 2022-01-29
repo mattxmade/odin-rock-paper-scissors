@@ -61,11 +61,21 @@ function playerSelection() {
   // user cancelled game
   if (playerMove === null) {
     confirm('Do you want to continue playing?') ? playerMove = prompt('Rock Paper or Scissors?')
-    : alert('Thanks for playing!');
+    : playerMove = 'Quit';
+  }
+
+  // Convert to string as null is sometimes passed
+  playerMove = String(playerMove);
+  
+  if (playerMove.toLowerCase() === 'null') {
+    playerMove = 'Quit';
   }
 
   // capitalise string for uniformity
-  playerMove = capitalise(playerMove);
+  playerMove.length !== 0 && playerMove !== null ? playerMove = capitalise(playerMove) : playerMove = 'invalidMove';
+  
+  // trim any whitespace
+  playerMove = playerMove.trim();
 
   switch(playerMove) {
     case 'Rock':
@@ -75,6 +85,9 @@ function playerSelection() {
       break;
 
     case 'Scissors':
+      break;
+
+    case 'Quit':
       break;
 
     default:
@@ -91,7 +104,7 @@ function playerSelection() {
 
 // 2b) Input validator functions
 function invalidMove(playerMove) {
-  return playerMove === '' 
+  return playerMove === 'invalidMove' 
   ? playerMove = `You didn't enter a move...` 
   : playerMove = `Invalid move! The input of '${playerMove}' is not recognised!`;
 }
@@ -123,9 +136,14 @@ function playRound(rounds, roundNum) {
   // function returns this variable
   let roundWinner = '';
 
+  // Player Quits Game
+  if (userMove === 'Quit') {
+    roundWinner = 'quit';
+  }
+
   // draw
   if (userMove === compMove) { 
-    let winner = 'draw';
+    roundWinner = 'draw';
     alert(`Draw Game! Both chose ${userMove}!`); 
   }
 
@@ -164,17 +182,20 @@ function playRound(rounds, roundNum) {
 
 // 4) Play a round of games
 function game(playGame = true) {
-  let roundNum = 0;
-  let rounds = prompt('How many rounds would you like play? Enter a number 1-5');
+  let roundWinner = 'quit';
 
-  // cancel game?
-  if (rounds === null) {
-    playGame = false;
-    confirm('Keep playing?') ? game() : alert('Thanks for playing!');
-  }
-
-  // continue to game
+  // continue to game if true
   if ( playGame ) {
+    let roundNum = 0;
+    let rounds = prompt('How many rounds would you like play? Enter a number 1-5');
+
+    // cancel game?
+    if (rounds === null) {
+      playGame = false;
+      confirm('Keep playing?') ? game(true) : 'Game Over!';
+      return;
+    }
+  
     let playerScore = 0;
     let comptrScore = 0;
     let numDrawGame = 0;
@@ -196,6 +217,9 @@ function game(playGame = true) {
 
       // round score 
       switch(roundWinner) {
+        case 'quit':
+          game(false);
+          return;
         case 'player':
           playerScore+=1;
           break;
@@ -211,15 +235,22 @@ function game(playGame = true) {
       roundNum+=1;
 
       // display score after each round
-      alert(`Round ${roundNum} Scores: | Player: ${playerScore} | Computer: ${comptrScore} | Draws: ${numDrawGame} |`);      
+      alert(`Round ${roundNum} Scores: | Player: ${playerScore} | Computer: ${comptrScore} | Draws: ${numDrawGame} |`);     
     }
 
-    // score overall
-    let gameResult = finalScores(playerScore, comptrScore, numDrawGame);
+    // score overall if player has not quit game
+    if (roundWinner !== 'quit') {
+      let gameResult = finalScores(playerScore, comptrScore, numDrawGame);
 
-    // play again?
-    confirm(gameResult) ? game() : 'Thanks for playing!';
+      // play again?
+      confirm(gameResult) ? game(true) : game(false);
+    }
   }
+
+  else {
+    alert('Game Over! Thanks for playing!');
+  }
+  
 }
 
 // testing
@@ -250,12 +281,7 @@ function finalScores(playerScore, comptrScore, numDrawGame) {
 
 // Capitalise string function
 function capitalise(string) {
-  if (typeof(string) === 'string') {
-    return string[0].toUpperCase() + string.slice(1).toLowerCase();
-  }
-  else {
-    alert('Must be a string');
-  }
+  return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
 // newGame with welcome message
