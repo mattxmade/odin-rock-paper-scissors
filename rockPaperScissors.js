@@ -181,18 +181,17 @@ function playRound(rounds, roundNum) {
 //playRound();
 
 // 4) Play a round of games
-function game(playGame = true) {
+function game(playGame = true, roundNum = 0) {
   let roundWinner = 'quit';
 
   // continue to game if true
   if ( playGame ) {
-    let roundNum = 0;
     let rounds = prompt('How many rounds would you like play? Enter a number 1-5');
 
     // cancel game?
     if (rounds === null) {
       playGame = false;
-      confirm('Keep playing?') ? game(true) : 'Game Over!';
+      confirm('Keep playing?') ? game(true) : alert('Game Over!');
       return;
     }
   
@@ -242,8 +241,8 @@ function game(playGame = true) {
     if (roundWinner !== 'quit') {
       let gameResult = finalScores(playerScore, comptrScore, numDrawGame);
 
-      // play again?
-      confirm(gameResult) ? game(true) : game(false);
+      // play again? | Pass true to game() to play again | pass false + number of rounds as current round number to bypass while loop
+      confirm(gameResult) ? game(true) : game(false, rounds);
     }
   }
 
