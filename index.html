@@ -6,9 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="toggleOutline.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <title>Rock Paper Scissors</title>
 </head>
 <body>
+
+  <!-- Remove outline switch when complete -->
 
   <!-- Outline switch -->
   <label id="outlineSwitch" class="switch">
@@ -16,7 +19,93 @@
     <span class="slider round"></span>
   </label>
 
+  <main>
+    <div class="playerAside">
+      <ul class="gameIcons">
+        <li class="rpsIcons">
+          <img src="images/active8.png" alt="rock game icon" class="imageIcon">
+        </li>
+        <li class="rpsIcons">
+          <img src="images/active11.png" alt="paper game icon" class="imageIcon">
+        </li>
+        <li class="rpsIcons">
+          <img src="images/passive1.png" alt="scissors game icon" class="imageIcon">
+        </li>
+      </ul>
+    </div>
 
+    <div class="gameBoard">
+      <ul class="scoreUL playerUL">
+        <li class="roundLi">
+          <img src="images/active12.png" alt="victory icon" class="imageIcon">
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active12.png" alt="victory icon" class="imageIcon">   
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active12.png" alt="victory icon" class="imageIcon">
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active12.png" alt="victory icon" class="imageIcon">
+        </li>
+        
+        <li class="roundLi">
+          <img src="images/active12.png" alt="victory icon" class="imageIcon">
+        </li>
+      </ul>
+
+      <ul class="gameIcons">
+        <li class="rpsIcons">
+          <img src="images/passive3.png" alt="rock game icon" class="imageIcon">
+        </li>
+      </ul>
+
+      <ul class="scoreUL computerUL">
+        <li class="roundLi">
+          <img src="images/active5.png" alt="victory icon" class="imageIcon">
+
+        </li>
+        <li class="roundLi">
+          <img src="images/active5.png" alt="victory icon" class="imageIcon">
+            
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active5.png" alt="victory icon" class="imageIcon">
+            
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active5.png" alt="victory icon" class="imageIcon">
+            
+        </li>
+
+        <li class="roundLi">
+          <img src="images/active5.png" alt="victory icon" class="imageIcon">
+        </li>
+      </ul>
+    </div>
+
+    <div class="computerAside">
+      <ul class="gameIcons">
+        <li class="rpsIcons avatar">
+          <img src="images/passive2.png" alt="scissors game icon" class="imageIcon">
+        </li>
+        <li class="rpsIcons">
+          <i class="fa fa-question" aria-hidden="true"></i>
+          <img src="images/flip_empty.png" alt="rock game icon" class="imageIcon">
+        </li>
+      </ul>
+      
+    </div>
+
+    <div class="optionsCont" onclick="sayHello()">
+      <i class="fa fa-gamepad" aria-hidden="true"></i>
+    </div>
+  </main>
   
   
 </body>
