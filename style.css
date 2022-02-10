@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script&family=Syne+Tactile&display=swap');
+
+/* 
+font-family: 'Bebas Neue', cursive;
+font-family: 'Dancing Script', cursive;
+font-family: 'Syne Tactile', cursive;
+*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, red, blue, red, blue, red);
+}
+
+/*======
+  Main
+========*/
+main {
+  width: 95%;
+  height: 90vh;
+  padding: 0 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem; /*not on all broswers*/
+
+  border-radius: 0.5rem;
+  border: 0.1rem solid transparent;
+  background-color: rgba(51, 51, 51, 0.75);
+}
+
+/*=============
+  playerAside
+===============*/
+.playerAside,
+.computerAside {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*ul*/
+.gameIcons {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/*focus*/
+
+/*li*/
+.rpsIcons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.5rem;
+  outline: 0 solid transparent;
+  border: 0.1rem solid transparent;
+  box-shadow: 0.1rem 5px 2.5rem black;
+  background: linear-gradient(#ff5d68, #ff2d3b, #ff5d68);
+
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+.rpsIcons:hover {
+  z-index: 2;
+  position: relative; 
+  outline: 0.4rem solid gold;
+}
+
+i.fa {
+  z-index: 0;
+  color: white;
+  font-size: 4rem;
+  position: absolute;
+}
+
+/*image icons*/
+.imageIcon {
+  width: 128px;
+  height: auto;
+  position: relative;
+
+  border-radius: 0.5rem;
+  border: 0.1rem solid transparent;
+}
+
+/*===============
+  computerAside
+=================*/
+.computerAside .gameIcons {
+  height: 80vh;
+  justify-content: flex-start;
+}
+
+.avatar {
+  margin-bottom: 5.7rem;
+}
+.avatar .imageIcon {
+  width: 192px;
+  height: auto;
+}
+
+/*=======
+  board
+=========*/
+.gameBoard {
+  width: 60vw;
+  height: calc(80vh);
+  
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;  
+  justify-content: space-between;
+
+  border-radius: 0.5rem;
+  border: 0.1rem solid transparent;
+}
+
+/* gamerIcons */
+.gameBoard .gameIcons {
+  top: -4rem;
+  position: relative;  
+  height: fit-content;
+  justify-content: flex-start;
+}
+
+/*=======
+  Scores
+=========*/
+.scoreUL {
+  display: flex; 
+  list-style: none;
+  width: fit-content;
+}
+
+.roundLi img {
+  width: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 0.3rem solid transparent;
+  image-rendering: optimizeQuality;
+  background: linear-gradient(#ff5d68, #ff2d3b, #ff5d68);
+}
+
+.playerUL img {
+  margin-right: 0.7rem;
+}
+.computerUL img {
+  margin-left: 0.7rem;
+}
+
+/*=========
+  Options
+===========*/
+.optionsCont {
+  width: 4rem;
+  height: 3rem;
+
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  justify-content: center;
+  
+  right: 2.9rem;
+  bottom: 3.6rem; 
+  position: absolute;
+
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 5px 25px black;
+  background: linear-gradient(#ff5d68, #ff2d3b, #ff5d68);
+}
+
+.optionsCont i.fa {
+  font-size: 2rem;
+}
