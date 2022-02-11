@@ -21,15 +21,18 @@
 
   <main>
     <div class="playerAside">
-      <ul class="gameIcons">
-        <li class="rpsIcons">
+      <ul class="gameIcons player">
+        <li class="rpsIcons selectable">
           <img src="images/active8.png" alt="rock game icon" class="imageIcon">
+          <div data-key="r" class="inactive"></div>
         </li>
-        <li class="rpsIcons">
+        <li class="rpsIcons selectable">
           <img src="images/active11.png" alt="paper game icon" class="imageIcon">
+          <div data-key="p" class="inactive"></div>
         </li>
-        <li class="rpsIcons">
+        <li class="rpsIcons selectable">
           <img src="images/passive1.png" alt="scissors game icon" class="imageIcon">
+          <div data-key="s" class="inactive"></div>
         </li>
       </ul>
     </div>
@@ -110,6 +113,7 @@
   
 </body>
 
+<script src="testing.js"></script>
 <!-- <script src="rockPaperScissors.js"></script> -->
 <script src="toggleOutline.js"></script>
 
