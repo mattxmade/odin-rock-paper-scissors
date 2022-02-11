@@ -56,7 +56,7 @@ main {
 
 /*ul*/
 .gameIcons {
-  height: 100vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -66,7 +66,8 @@ main {
 /*focus*/
 
 /*li*/
-.rpsIcons {
+.rpsIcons,
+.selectable {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +82,8 @@ main {
   overflow: hidden;
 }
 
-.rpsIcons:hover {
+.selectable:hover,
+.selected {
   z-index: 2;
   position: relative; 
   outline: 0.4rem solid gold;
@@ -104,6 +106,19 @@ i.fa {
   border: 0.1rem solid transparent;
 }
 
+.inactive {
+  width: 8.2rem;
+  height: 8.2rem;
+  position: absolute;
+  border-radius: 0.5rem;
+  background-color: rgba(150, 186, 187, 0.0);
+  transition: 0.3s;
+}
+
+.visible {
+  background-color: rgba(150, 186, 187, 0.75);
+}
+
 /*===============
   computerAside
 =================*/
@@ -112,8 +127,8 @@ i.fa {
   justify-content: flex-start;
 }
 
-.avatar {
-  margin-bottom: 5.7rem;
+.computerAside .avatar {
+  margin-bottom: 5.75rem;
 }
 .avatar .imageIcon {
   width: 192px;
