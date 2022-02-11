@@ -129,19 +129,27 @@ i.fa {
 
 .computerAside .avatar {
   margin-bottom: 5.75rem;
+  padding-bottom: 4rem;
 }
 .avatar .imageIcon {
   width: 192px;
   height: auto;
 }
 
-/*=======
-  board
-=========*/
-.gameBoard {
+/*===========
+  Game Area
+=============*/
+.gameArea {
+  display: flex;
+  flex-direction: column;
   width: 60vw;
-  height: calc(80vh);
-  
+  height: 80vh;
+}
+
+/*========
+  Scores
+==========*/
+.scoreBoard {
   display: flex;
   flex-direction: row;
   align-items: flex-start;  
@@ -151,8 +159,8 @@ i.fa {
   border: 0.1rem solid transparent;
 }
 
-/* gamerIcons */
-.gameBoard .gameIcons {
+/* gameIcons */
+.scoreBoard .gameIcons {
   top: -4rem;
   position: relative;  
   height: fit-content;
@@ -182,6 +190,64 @@ i.fa {
 }
 .computerUL img {
   margin-left: 0.7rem;
+}
+
+/*===========
+  gameBoard
+=============*/
+.gameBoard {
+  flex: 1;
+  border-radius: 0.5rem;
+  border: 0.01rem purple;
+  border-style: groove;
+
+  padding: 2rem;
+  display: flex;
+
+  gap: 2rem;
+}
+
+/*===========
+  GameCards
+=============*/
+.gameBoard .cardArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  list-style: none;
+
+  position: relative;
+  z-index: -1;
+}
+
+.card {
+  width: 80%;
+  height: 80%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 0.1rem;
+
+  border-radius: 1rem;
+  box-shadow: 0.1rem 5px 25px black;
+  /* background: linear-gradient(45deg, red, blue, red, blue, red); */
+  background: linear-gradient(45deg, #ff2d3b, rgb(40, 40, 187), #ff2d3b);
+}
+
+.card__inner {
+  width: 100%;
+  height: 100%;
+
+  opacity: 0.7;
+  border-radius: 0.8rem;
+  background-color: rgb(82, 33, 33);
 }
 
 /*=========
