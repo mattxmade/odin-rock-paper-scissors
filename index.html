@@ -25,14 +25,14 @@
   <main>
     <div class="playerAside">
       <ul class="gameIcons player">
-        <li id="rock" class="rpsIcons selectable">
-          <img class="imageIcon state" src="images/active8.png" alt="rock game icon" >
+        <li id="js-rock" class="rpsIcons selectable">
+          <img class="imageIcon js-player-icons" src="images/active8.png" alt="rock game icon" >
         </li>
-        <li id="paper" class="rpsIcons selectable">
-          <img class="imageIcon state" src="images/active11.png" alt="paper game icon" >
+        <li id="js-paper" class="rpsIcons selectable">
+          <img class="imageIcon js-player-icons" src="images/active11.png" alt="paper game icon" >
         </li>
-        <li id="scissors" class="rpsIcons selectable">
-          <img class="imageIcon state" src="images/passive1.png" alt="scissors game icon" >
+        <li id="js-scissors" class="rpsIcons selectable">
+          <img class="imageIcon js-player-icons" src="images/passive1.png" alt="scissors game icon" >
         </li>
       </ul>
     </div>
@@ -102,20 +102,12 @@
           </li>
         </ul>
 
-        <!-- <ul class="cardArea dualMode">
-          <li class="card card__comp">
-            <div class="card__inner">
-              <div class="gameBox empty_B"></div>
-            </div>
-          </li>
-        </ul> -->
-
         <ul class="cardArea dualMode flipCard">
           <li class="card card__comp">
             <div class="card__inside">
         
               <div class="card__face card__face--front">
-                <!-- <h2>Dev Card</h2> -->
+                <!-- <h2>?</h2> -->
                 <div class="gameBox empty_B"></div>
               </div>
         
@@ -127,15 +119,8 @@
                   </div>
         
                   <div class="card__body">
-                    <h3>JS Wizard</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur 
-                      adipisicing elit. Quibusdam rerum nam 
-                      deserunt odit. Quo, doloribus asperiores 
-                      deleniti recusandae praesentium explicabo. 
-                      Amet vitae doloremque quisquam! 
-                      Totam perspiciatis minus sit architecto 
-                      dolores?
-                    </p>
+                    <h3>CPU RPS</h3>
+                    <p id="revealRPS"></p>
                   </div>
                   
                 </div>
@@ -151,11 +136,11 @@
     <div class="computerAside">
       <ul class="gameIcons">
         <li class="rpsIcons avatar">
-          <img src="images/passive2.png" alt="scissors game icon" class="imageIcon">
+          <img src="images/passive2.png" alt="computer avatar" class="imageIcon">
         </li>
-        <li class="rpsIcons dualMode">
+        <li class="rpsIcons js-computer-icon dualMode">
           <i class="fa fa-question" aria-hidden="true"></i>
-          <img src="images/flip_empty.png" alt="rock game icon" class="imageIcon">
+          <img src="images/flip_empty.png" alt="computer choice" class="imageIcon">
         </li>
       </ul>
       
@@ -171,7 +156,7 @@
   
 </body>
 
-<script src="testing.js"></script>
+<script src="rockPaperScissorsGUI.js"></script>
 <script src="cardFlip.js"></script>
 <!-- <script src="rockPaperScissors.js"></script> -->
 <script src="toggleOutline.js"></script>
