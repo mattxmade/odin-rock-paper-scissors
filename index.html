@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cardFlip.css">
   <link rel="stylesheet" href="toggleOutline.css">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <title>Rock Paper Scissors</title>
@@ -19,20 +20,19 @@
     <span class="slider round"></span>
   </label>
 
+  <div class="wrapper">
+
   <main>
     <div class="playerAside">
       <ul class="gameIcons player">
-        <li class="rpsIcons selectable">
-          <img src="images/active8.png" alt="rock game icon" class="imageIcon">
-          <div data-key="r" class="inactive"></div>
+        <li id="rock" class="rpsIcons selectable">
+          <img class="imageIcon state" src="images/active8.png" alt="rock game icon" >
         </li>
-        <li class="rpsIcons selectable">
-          <img src="images/active11.png" alt="paper game icon" class="imageIcon">
-          <div data-key="p" class="inactive"></div>
+        <li id="paper" class="rpsIcons selectable">
+          <img class="imageIcon state" src="images/active11.png" alt="paper game icon" >
         </li>
-        <li class="rpsIcons selectable">
-          <img src="images/passive1.png" alt="scissors game icon" class="imageIcon">
-          <div data-key="s" class="inactive"></div>
+        <li id="scissors" class="rpsIcons selectable">
+          <img class="imageIcon state" src="images/passive1.png" alt="scissors game icon" >
         </li>
       </ul>
     </div>
@@ -62,7 +62,7 @@
         </ul>
 
         <ul class="gameIcons">
-          <li class="rpsIcons">
+          <li class="rpsIcons victoryItem">
             <img src="images/passive3.png" alt="rock game icon" class="imageIcon">
           </li>
         </ul>
@@ -94,15 +94,54 @@
       </div>
 
       <div class="gameBoard">
-        <ul class="cardArea">
+        <ul class="cardArea cardArea-left dualMode">
           <li class="card card__play">
-            <div class="card__inner"></div>
+            <div class="card__inner">
+              <div class="gameBox empty_A"></div>
+            </div>
           </li>
         </ul>
 
-        <ul class="cardArea">
+        <!-- <ul class="cardArea dualMode">
           <li class="card card__comp">
-            <div class="card__inner"></div>
+            <div class="card__inner">
+              <div class="gameBox empty_B"></div>
+            </div>
+          </li>
+        </ul> -->
+
+        <ul class="cardArea dualMode flipCard">
+          <li class="card card__comp">
+            <div class="card__inside">
+        
+              <div class="card__face card__face--front">
+                <!-- <h2>Dev Card</h2> -->
+                <div class="gameBox empty_B"></div>
+              </div>
+        
+              <div class="card__face card__face--back">
+        
+                <div class="card__content">
+                  <div class="card__header">
+                    <img src="images/active11.png" alt="" class="pp">
+                  </div>
+        
+                  <div class="card__body">
+                    <h3>JS Wizard</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur 
+                      adipisicing elit. Quibusdam rerum nam 
+                      deserunt odit. Quo, doloribus asperiores 
+                      deleniti recusandae praesentium explicabo. 
+                      Amet vitae doloremque quisquam! 
+                      Totam perspiciatis minus sit architecto 
+                      dolores?
+                    </p>
+                  </div>
+                  
+                </div>
+              </div>
+        
+            </div>
           </li>
         </ul>
       </div>
@@ -114,7 +153,7 @@
         <li class="rpsIcons avatar">
           <img src="images/passive2.png" alt="scissors game icon" class="imageIcon">
         </li>
-        <li class="rpsIcons">
+        <li class="rpsIcons dualMode">
           <i class="fa fa-question" aria-hidden="true"></i>
           <img src="images/flip_empty.png" alt="rock game icon" class="imageIcon">
         </li>
@@ -122,15 +161,18 @@
       
     </div>
 
-    <div class="optionsCont" onclick="sayHello()">
+    <!-- <div class="optionsCont" onclick="sayHello()">
       <i class="fa fa-gamepad" aria-hidden="true"></i>
-    </div>
+    </div> -->
   </main>
+
+</div>
   
   
 </body>
 
 <script src="testing.js"></script>
+<script src="cardFlip.js"></script>
 <!-- <script src="rockPaperScissors.js"></script> -->
 <script src="toggleOutline.js"></script>
 
