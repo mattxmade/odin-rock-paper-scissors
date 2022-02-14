@@ -6,7 +6,7 @@ let playerMove = '';
 
 let lastWidth = 0;
 
-let roundNumber = 0;
+let roundNumber = 1;
 let winner = '';
 
 let comScoreIcon = '';
@@ -19,7 +19,7 @@ function cardReveal(computerChoice) {
 
   console.log(`player: ${playerMove}, cpu: ${computerChoice}`);
 
-  roundNumber++;
+  roundNumber = roundNumber;
 
   if (playerMove === computerChoice) {
     displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
@@ -85,7 +85,7 @@ function flipCard(card) {
   card.classList.toggle('is-flipped');
 }
 
-function presentScore(roundWinner, roundNum, card) {
+function presentScore(roundWinner, roundNum) {
   const firstRoundPLR = document.querySelector('.js-round1-plr');
   const firstRoundCOM = document.querySelector('.js-round1-com');
 
@@ -229,14 +229,21 @@ function presentScore(roundWinner, roundNum, card) {
     }
   }
 
+  roundNumber++;
+  roundNum = roundNumber;
+  console.log(roundNum);
   // delay this | this is you ask if user wants to play again | while loop | yes play again | no outro
-  if (roundNum === 5) {
+  if (roundNum === 6) {
     console.log('GAME OVER');
     roundNum = 0;
 
     pointCounters.forEach(point => {
-      point.classList.remove(plrScoreIcon);
-      point.classList.remove(comScoreIcon);
+      // point.classList.remove(plrScoreIcon);
+      // point.classList.remove(comScoreIcon);
+
+      point.classList.remove('fa-circle');
+      point.classList.remove('fa-dot-circle-o');
+
 
       point.classList.add('fa-circle-o');
     });
