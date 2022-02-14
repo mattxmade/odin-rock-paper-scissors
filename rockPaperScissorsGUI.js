@@ -1,8 +1,7 @@
-let translate = '';
-let currentIcon = '';
-const resetPosition = 'translate(0,0)';
 
-let playerMove = '';
+let currentIcon = '';
+let iconPosition = '';
+const resetPosition = 'translate(0,0)';
 
 let lastWidth = 0;
 
@@ -35,29 +34,29 @@ function roundWinner(plrChoice, comChoice) {
   return winner;
 }
 
-function cardReveal(computerChoice) {
+function cardReveal(playerChoice, computerChoice) {
   
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
   const displayCpuChoice = document.getElementById('revealRPS');
 
-  console.log(`player: ${playerMove}, cpu: ${computerChoice}`);
+  console.log(`player: ${playerChoice}, cpu: ${computerChoice}`);
 
   roundNumber = roundNumber;
 
-  const winner = roundWinner(playerMove, computerChoice);
+  const winner = roundWinner(playerChoice, computerChoice);
 
   switch(winner) {
     case 'PLR':
-      displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+      displayCpuChoice.textContent = `YOU WIN! | You : ${playerChoice} | CPU : ${computerChoice}`;
       console.log('You Win!');
       break;
     case 'COM':
-      displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+      displayCpuChoice.textContent = `YOU LOSE! | You : ${playerChoice} | CPU : ${computerChoice}`;
       console.log('You Lose!');
       break;
     case 'DRW':
-      displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
+      displayCpuChoice.textContent = `DRAW GAME!| You : ${playerChoice} | CPU : ${computerChoice}`;
       console.log('Draw Game!');
       break;
   }
@@ -79,6 +78,7 @@ function cardReveal(computerChoice) {
   // Total Time: 16s
 }
 
+// will fail -- translate is global
 function resetBoard() {
   const resetIcons = document.querySelectorAll('.rpsIcons');
   resetIcons.forEach(icon => {
@@ -234,14 +234,17 @@ function updateScore(roundWinner, playedRound) {
 } 
 
 // 1) Computer Move
-function computerPlay(playerIconPosition) {
-  const cpuIcon = document.querySelector('.js-computer-icon');
+function computerPlay() {
 
   // moves stored inside array
   const moveSelection = ['ROCK', 'PAPER', 'SCISSORS'];
+  return moveSelection[Math.floor(Math.random() * moveSelection.length)];
+}
 
-  const computerChoice = moveSelection[Math.floor(Math.random() * moveSelection.length)];
-
+function computerIcon(playerIconPosition) {
+  const cpuIcon = document.querySelector('.js-computer-icon');
+  
+  // check viewport width
   if (window.innerWidth <= 1210) {
     cpuIcon.style.zIndex = -1;
     cpuIcon.style.visibility = 'hidden';
@@ -260,14 +263,13 @@ function computerPlay(playerIconPosition) {
       cpuIcon.style.visibility = 'visible';
     }
   }
-  console.log(`Cpu selected: ${computerChoice}`);
-  const delayrevealMove = setTimeout(cardReveal, 1000, computerChoice);
-  delayrevealMove;
-  // return computerChoice;
 }
 
 function playerSelection() {
   console.log(`Round ${roundNumber}!`);
+
+  let playerMove = '';
+
 
   const rock = document.getElementById('js-rock');
   const papr = document.getElementById('js-paper');
@@ -302,15 +304,15 @@ function playerSelection() {
         switch(currentIcon) {
           case 'ROCK':
             translateIconPosition('large', rock, papr, sisr);
-            computerPlay(translate);
+            computerPlay(); 
             break;
           case 'PAPER':
             translateIconPosition('large', papr, sisr, rock);
-            computerPlay(translate);
+            computerPlay(); 
             break;
           case 'SCISSORS':
             translateIconPosition('large', sisr, rock, papr);
-            computerPlay(translate);
+            computerPlay();
             break;
         }        
       }
@@ -354,8 +356,8 @@ function playerSelection() {
             papr.style.zIndex = -1;
             sisr.style.zIndex = -1;
             
-            translate = 'translate(298px, 317px)';
-            rock.style.transform = translate;
+            iconPosition = 'translate(298px, 317px)';
+            rock.style.transform = iconPosition;
 
             playerMove = 'ROCK';
             currentIcon = playerMove;
@@ -370,8 +372,8 @@ function playerSelection() {
             sisr.style.zIndex = -1;
             rock.style.zIndex = -1;
 
-            translate = 'translate(298px, 77px)';
-            papr.style.transform = translate;
+            iconPosition = 'translate(298px, 77px)';
+            papr.style.transform = iconPosition;
 
             playerMove = 'PAPER';
             currentIcon = playerMove;
@@ -385,8 +387,8 @@ function playerSelection() {
             rock.style.zIndex = -1;
             papr.style.zIndex = -1;
 
-            translate = 'translate(298px, -164px)';
-            sisr.style.transform = translate;
+            iconPosition = 'translate(298px, -164px)';
+            sisr.style.transform = iconPosition;
 
             playerMove = 'SCISSORS';
             currentIcon = playerMove;
@@ -406,7 +408,7 @@ function playerSelection() {
             // papr.classList.remove('selected');
             // sisr.classList.remove('selected');
 
-            translate = 'translate(298px, 317px)';
+            iconPosition = 'translate(298px, 317px)';
 
             playerMove = 'ROCK';
             currentIcon = playerMove;
@@ -421,7 +423,7 @@ function playerSelection() {
             // sisr.classList.remove('selected');
             // rock.classList.remove('selected');
 
-            translate = 'translate(298px, 77px)';
+            iconPosition = 'translate(298px, 77px)';
 
             playerMove = 'PAPER';
             currentIcon = playerMove;
@@ -436,7 +438,7 @@ function playerSelection() {
             // rock.classList.remove('selected');
             // papr.classList.remove('selected');
             
-            translate = 'translate(298px, -164px)';
+            iconPosition = 'translate(298px, -164px)';
 
             playerMove = 'SCISSORS';
             currentIcon = playerMove;
@@ -445,7 +447,16 @@ function playerSelection() {
             break;
         }
       }
-      gameFlowPause(computerPlay, 800, translate);
+
+      // move COM icon 0.8s after PLR icon choice
+      gameFlowPause(computerIcon, 800, iconPosition);
+
+      // new COM move
+      const comChoice = computerPlay();
+      console.log(`Cpu selected: ${comChoice}`);
+
+      // Pause for 1s before card flip reveal
+      gameFlowPause(cardReveal, 1000, playerMove, comChoice);
     });
   });
   //return playerMove;
@@ -492,4 +503,8 @@ function playerClassSetter(selectedMove, secondMove, thirdMove, targetClass) {
   selectedMove.classList.add(targetClass);
   secondMove.classList.remove(targetClass);
   thirdMove.classList.remove(targetClass);
+}
+
+function playerStyleSetter(element, property, value) {
+  element.style[property] = value;
 }
