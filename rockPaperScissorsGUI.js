@@ -444,10 +444,6 @@ function playerSelection() {
 
 playerSelection();
 
-function yoShoutMe() {
-  return 'Yo whats good!?';
-}
-
 // moves icon if viewport width <= 1210px | small viewport game version
 function translateIconPosition(screenSize, selectedIcon, deselected_A, deselected_B) {
 
