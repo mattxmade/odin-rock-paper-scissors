@@ -53,14 +53,16 @@ function cardReveal(computerChoice) {
     card.classList.toggle('is-flipped');
   }
 
-  const delayCardFlip = setTimeout(flipCard, 4000, card);
-  delayCardFlip;
+  // FIRST pause then flip card
+  gameFlowPause(flipCard, 4000, card);
 
-  const delayScore = setTimeout(presentScore, 6500, winner, roundNumber);
-  delayScore;
+  // THEN present score
+  gameFlowPause(presentScore, 6500, roundNumber);
 
-  const homePosistions = setTimeout(resetBoard, 5500);
-  homePosistions;
+  // LAST reset board
+  gameFlowPause(resetBoard, 5500);
+
+  // 16 seconds total
 }
 
 function resetBoard() {
@@ -435,8 +437,7 @@ function playerSelection() {
             break;
         }
       }
-      const delayCpuMove = setTimeout(computerPlay, 800, translate);
-      delayCpuMove;
+      gameFlowPause(computerPlay, 800, translate);
     });
   });
   //return playerMove;
@@ -470,4 +471,12 @@ function translateIconPosition(screenSize, selectedIcon, deselected_A, deselecte
     deselected_B.style.transform = resetPosition;
     deselected_B.style.zIndex = -1;
   }
+}
+
+function gameFlowPause(callAfter, timeDelay, ...args) {
+
+  console.log('flowTimer');
+  const flowTimer = setTimeout(callAfter, timeDelay, ...args);
+  flowTimer;
+
 }
