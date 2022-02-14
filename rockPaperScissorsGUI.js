@@ -6,46 +6,247 @@ let playerMove = '';
 
 let lastWidth = 0;
 
+let roundNumber = 0;
+let winner = '';
+
+let comScoreIcon = '';
+let plrScoreIcon = '';
+
 function cardReveal(computerChoice) {
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
   const displayCpuChoice = document.getElementById('revealRPS');
 
-  
   console.log(`player: ${playerMove}, cpu: ${computerChoice}`);
+
+  roundNumber++;
 
   if (playerMove === computerChoice) {
     displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'DRW';
   }
   if (playerMove === 'ROCK' && computerChoice === 'SCISSORS') {
     displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'PLR';
   }
   if (playerMove === 'PAPER' && computerChoice === 'ROCK') {
     displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'PLR';
   }
   if (playerMove === 'SCISSORS' && computerChoice === 'PAPER') {
     displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'PLR';
   }
 
   if (computerChoice === 'ROCK' && playerMove === 'SCISSORS') {
     displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'COM';
   }
   if (computerChoice === 'PAPER' && playerMove === 'ROCK') {
     displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'COM';
   }
   if (computerChoice === 'SCISSORS' && playerMove === 'PAPER') {
     displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+    winner = 'COM';
   }
 
   if (playerMove !== '') {
     cardBody.appendChild(displayCpuChoice);
     card.classList.toggle('is-flipped');
   }
+
+  const delayCardFlip = setTimeout(flipCard, 4000, card);
+  delayCardFlip;
+
+  const delayScore = setTimeout(presentScore, 6500, winner, roundNumber);
+  delayScore;
+
+  const homePosistions = setTimeout(resetBoard, 5500);
+  homePosistions;
 }
+
+function resetBoard() {
+  const resetIcons = document.querySelectorAll('.rpsIcons');
+  resetIcons.forEach(icon => {
+
+    translate = 'translate(0,0)';
+    icon.style.position = 'relative';
+    icon.style.transform = translate;
+    icon.style.zIndex = 0;
+    icon.style.visibility = 'visible';
+
+    icon.classList.remove('visible');
+    icon.classList.remove('selected');
+  });
+}
+
+function flipCard(card) {
+  card.classList.toggle('is-flipped');
+}
+
+function presentScore(roundWinner, roundNum, card) {
+  const firstRoundPLR = document.querySelector('.js-round1-plr');
+  const firstRoundCOM = document.querySelector('.js-round1-com');
+
+  const secondRoundPLR = document.querySelector('.js-round2-plr');
+  const secondRoundCOM = document.querySelector('.js-round2-com');
+
+  const thirdRoundPLR = document.querySelector('.js-round3-plr');
+  const thirdRoundCOM = document.querySelector('.js-round3-com');
+
+  const fourthRoundPLR = document.querySelector('.js-round4-plr');
+  const fourthRoundCOM = document.querySelector('.js-round4-com');
+
+  const fifthRoundPLR = document.querySelector('.js-round5-plr');
+  const fifthRoundCOM = document.querySelector('.js-round5-com');
+
+  const pointCounters = document.querySelectorAll('.js-point');
+
+
+  if (roundNum === 1) {
+    if (roundWinner === 'PLR') {
+      firstRoundPLR.classList.remove('fa-circle-o');
+      firstRoundPLR.classList.add('fa-circle');
+
+      plrScoreIcon = 'fa-circle';
+    }
+    else if (roundWinner === 'COM') {
+      firstRoundCOM.classList.remove('fa-circle-o');
+      firstRoundCOM.classList.add('fa-circle');
+
+      comScoreIcon = 'fa-circle';
+    }
+    else {
+      firstRoundPLR.classList.remove('fa-circle-o');
+      firstRoundCOM.classList.remove('fa-circle-o');
+
+      firstRoundPLR.classList.add('fa-dot-circle-o');
+      firstRoundCOM.classList.add('fa-dot-circle-o');
+
+      plrScoreIcon = 'fa-dot-circle-o';
+      comScoreIcon = 'fa-dot-circle-o';
+    }
+  }
+
+  if (roundNum === 2) {
+    if (roundWinner === 'PLR') {
+      secondRoundPLR.classList.remove('fa-circle-o');
+      secondRoundPLR.classList.add('fa-circle');
+
+      plrScoreIcon = 'fa-circle';
+    }
+    else if (roundWinner === 'COM') {
+      secondRoundCOM.classList.remove('fa-circle-o');
+      secondRoundCOM.classList.add('fa-circle');
+
+      comScoreIcon = 'fa-circle';
+    }
+    else {
+      secondRoundPLR.classList.remove('fa-circle-o');
+      secondRoundCOM.classList.remove('fa-circle-o');
+
+      secondRoundPLR.classList.add('fa-dot-circle-o');
+      secondRoundCOM.classList.add('fa-dot-circle-o');
+
+      plrScoreIcon = 'fa-dot-circle-o';
+      comScoreIcon = 'fa-dot-circle-o';
+    }
+  }
+
+  if (roundNum === 3) {
+    if (roundWinner === 'PLR') {
+      thirdRoundPLR.classList.remove('fa-circle-o');
+      thirdRoundPLR.classList.add('fa-circle');
+
+      plrScoreIcon = 'fa-circle';
+    }
+    else if (roundWinner === 'COM') {
+      thirdRoundCOM.classList.remove('fa-circle-o');
+      thirdRoundCOM.classList.add('fa-circle');
+
+      comScoreIcon = 'fa-circle';
+    }
+    else {
+      thirdRoundPLR.classList.remove('fa-circle-o');
+      thirdRoundCOM.classList.remove('fa-circle-o');
+
+      thirdRoundPLR.classList.add('fa-dot-circle-o');
+      thirdRoundCOM.classList.add('fa-dot-circle-o');
+
+      plrScoreIcon = 'fa-dot-circle-o';
+      comScoreIcon = 'fa-dot-circle-o';
+    }
+  }
+
+  if (roundNum === 4) {
+    if (roundWinner === 'PLR') {
+      fourthRoundPLR.classList.remove('fa-circle-o');
+      fourthRoundPLR.classList.add('fa-circle');
+
+      plrScoreIcon = 'fa-circle';
+    }
+    else if (roundWinner === 'COM') {
+      fourthRoundCOM.classList.remove('fa-circle-o');
+      fourthRoundCOM.classList.add('fa-circle');
+
+      comScoreIcon = 'fa-circle';
+    }
+    else {
+      fourthRoundPLR.classList.remove('fa-circle-o');
+      fourthRoundCOM.classList.remove('fa-circle-o');
+
+      fourthRoundPLR.classList.add('fa-dot-circle-o');
+      fourthRoundCOM.classList.add('fa-dot-circle-o');
+
+      plrScoreIcon = 'fa-dot-circle-o';
+      comScoreIcon = 'fa-dot-circle-o';
+    }
+  }
+
+  if (roundNum === 5) {
+    if (roundWinner === 'PLR') {
+      fifthRoundPLR.classList.remove('fa-circle-o');
+      fifthRoundPLR.classList.add('fa-circle');
+
+      plrScoreIcon = 'fa-circle';
+    }
+    else if (roundWinner === 'COM') {
+      fifthRoundCOM.classList.remove('fa-circle-o');
+      fifthRoundCOM.classList.add('fa-circle');
+
+      comScoreIcon = 'fa-circle';
+    }
+    else {
+      fifthRoundPLR.classList.remove('fa-circle-o');
+      fifthRoundCOM.classList.remove('fa-circle-o');
+
+      fifthRoundPLR.classList.add('fa-dot-circle-o');
+      fifthRoundCOM.classList.add('fa-dot-circle-o');
+
+      plrScoreIcon = 'fa-dot-circle-o';
+      comScoreIcon = 'fa-dot-circle-o';
+    }
+  }
+
+  // delay this | this is you ask if user wants to play again | while loop | yes play again | no outro
+  if (roundNum === 5) {
+    console.log('GAME OVER');
+    roundNum = 0;
+
+    pointCounters.forEach(point => {
+      point.classList.remove(plrScoreIcon);
+      point.classList.remove(comScoreIcon);
+
+      point.classList.add('fa-circle-o');
+    });
+    roundNumber = 0;
+
+  }
+} 
 
 // 1) Computer Move
 function computerPlay(playerIconPosition) {
-  const keyPair = [];
   const cpuIcon = document.querySelector('.js-computer-icon');
 
   // moves stored inside array
@@ -53,14 +254,10 @@ function computerPlay(playerIconPosition) {
 
   const computerChoice = moveSelection[Math.floor(Math.random() * moveSelection.length)];
 
-  keyPair.push(cpuIcon);
-  keyPair.push(computerChoice);
-
   if (window.innerWidth <= 1210) {
     cpuIcon.style.zIndex = -1;
     cpuIcon.style.visibility = 'hidden';
     cpuIcon.style.position = 'absolute';
-    console.log('TODO');
   }
   else {
     cpuIcon.style.position = 'relative';
@@ -134,33 +331,33 @@ function playerSelection() {
   });
 
   // game area - click to cancel selected move
-  undoSelect.addEventListener('click', (e) => {
+  // undoSelect.addEventListener('click', (e) => {
 
-    if (window.innerWidth > 1210) {
-      undoSelect.style.cursor = 'default';
+  //   if (window.innerWidth > 1210) {
+  //     undoSelect.style.cursor = 'default';
 
-      deselectAllIcons.forEach(icon => {
-        icon.classList.remove('visible');
-        icon.classList.remove('selected');
+  //     deselectAllIcons.forEach(icon => {
+  //       icon.classList.remove('visible');
+  //       icon.classList.remove('selected');
 
-        rock.style.transform = resetPosition;
-        papr.style.transform = resetPosition;
-        sisr.style.transform = resetPosition;
+  //       rock.style.transform = resetPosition;
+  //       papr.style.transform = resetPosition;
+  //       sisr.style.transform = resetPosition;
 
-        rock.style.zIndex = 1;
-        papr.style.zIndex = 1;
-        sisr.style.zIndex = 1;
-      });
-    }
-    const delayCpuMove = setTimeout(computerPlay, 500, resetPosition);
-    delayCpuMove;
-  });
+  //       rock.style.zIndex = 1;
+  //       papr.style.zIndex = 1;
+  //       sisr.style.zIndex = 1;
+  //     });
+  //   }
+  //   const delayCpuMove = setTimeout(computerPlay, 500, resetPosition);
+  //   delayCpuMove;
+  // });
 
   iconSelect.forEach((icon, index) => {
 
     icon.addEventListener('click', (e) => {
       if (window.innerWidth > 1210) {
-        undoSelect.style.cursor = 'pointer';
+        // undoSelect.style.cursor = 'pointer';
 
         switch(index) {
           case 0:
