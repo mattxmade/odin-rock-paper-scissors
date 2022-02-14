@@ -369,7 +369,7 @@ i.fa {
 /*============
   responsive
 ==============*/
-/* @media (max-width: 1210px) {
+@media (max-width: 1210px) {
   main {
     height: 95vh;
     width: 90vw;
@@ -487,4 +487,4 @@ i.fa {
   .card__inner {
     padding: 1rem;
   }
-} */
+}
