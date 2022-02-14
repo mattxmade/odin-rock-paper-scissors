@@ -19,7 +19,7 @@ html {
 
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 body {
@@ -54,18 +54,22 @@ main {
 }
 
 /*=============
-  playerAside
+  Player Aside
 ===============*/
-.playerAside,
-.computerAside {
+.player-aside,
+.computer-aside {
+  height: 92%;
   flex: 1;
   display: flex;
-  flex-direction: column;
 }
 
-/*ul*/
-.gameIcons {
-  height: 45rem;
+/* focus onload accessibility */
+
+/*==================
+  Proto Icon Style
+====================*/
+.game-icons {
+  /* height: 45rem; */ /* display problem on firefox */
 
   display: flex;
   align-items: center;
@@ -73,10 +77,8 @@ main {
   justify-content: space-around;
 }
 
-/*focus*/
-
 /*li*/
-.rpsIcons,
+.rps-icons,
 .selectable {
   display: flex;
   align-items: center;
@@ -110,7 +112,7 @@ i.fa {
 }
 
 /*image icons*/
-.imageIcon {
+.image-icon {
   width: 128px;
   height: auto;
   position: relative;
@@ -133,13 +135,13 @@ i.fa {
 }
 
 /*===============
-  computerAside
+  computer-aside
 =================*/
-.computerAside .gameIcons {
+.computer-aside .game-icons {
   justify-content: flex-start;
 }
 
-.computerAside .avatar {
+.computer-aside .avatar {
   display: flex;
   align-items: flex-start;
   margin-bottom: 6.9rem;
@@ -147,7 +149,7 @@ i.fa {
   /* padding-bottom: 4rem; */
   height: 16.2rem;
 }
-.avatar .imageIcon {
+.avatar .image-icon {
   width: 192px;
   height: auto;
 }
@@ -155,7 +157,7 @@ i.fa {
 /*===========
   Game Area
 =============*/
-.gameArea {
+.game-area {
   height: 92%;
 
   gap: 1rem;
@@ -166,7 +168,7 @@ i.fa {
 /*========
   Scores
 ==========*/
-.scoreBoard {
+.score-board {
   display: flex;
   flex-direction: row;
   align-items: center;  
@@ -176,8 +178,8 @@ i.fa {
   border: 0.1rem solid transparent;
 }
 
-/* gameIcons */
-.scoreBoard .gameIcons {
+/* game-icons */
+.score-board .game-icons {
   top: -1rem;
   position: relative;  
   height: fit-content;
@@ -187,24 +189,24 @@ i.fa {
 /*========
   Scores
 ==========*/
-.scoreUL {
+.score-ul {
   display: flex;
   list-style: none;
   width: fit-content;
 }
 
-/* .roundLi {
+/* .score-point-li {
   visibility: hidden;
 } */
 
-.roundLi,
-.roundLi div {
+.score-point-li,
+.score-point-li div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.roundLi div {
+.score-point-li div {
   width: 48px;
   height: 48px;
   overflow: hidden;
@@ -228,27 +230,27 @@ i.fa {
   color: green;
 }
 
-.playerUL,
-.computerUL {
+.score-player-ul,
+.score-computer-ul {
   border-radius: 1rem;
   box-shadow: 0.1rem 5px 12.5px black;
   /* background: linear-gradient(#812f35, #17396b, #7a0a12); */
 }
 
-.playerUL div,
-.computerUL div {
+.score-player-ul div,
+.score-computer-ul div {
   margin: 0 0.35rem;
 }
 
-.computerUL {
+.score-computer-ul {
   position: relative;
   visibility: visible;
 }
 
-/*===========
-  gameBoard
-=============*/
-.gameBoard {
+/*============
+  Game Board
+==============*/
+.game-board {
   flex: 1;
   display: flex;
   align-self: center;
@@ -266,7 +268,7 @@ i.fa {
 /*===========
   GameCards
 =============*/
-.gameBoard .cardArea {
+.game-board .card-area {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -280,7 +282,7 @@ i.fa {
   /* z-index: -1; */
 }
 
-.gameBoard .dualMode {
+.game-board .dualMode {
   position: relative;
   visibility: visible;
 }
@@ -297,7 +299,7 @@ i.fa {
   padding: 0.1rem;
 }
 
-.cardArea-left {
+.card-area-left {
   z-index: -1;
 }
 
@@ -331,7 +333,7 @@ i.fa {
 /*==========
   Item Box
 ============*/
-.gameBox {
+.game-box {
   width: 8.2rem;
   height: 8.2rem;
   position: relative;
@@ -367,7 +369,7 @@ i.fa {
 /*============
   responsive
 ==============*/
-@media (max-width: 1210px) {
+/* @media (max-width: 1210px) {
   main {
     height: 95vh;
     width: 90vw;
@@ -378,40 +380,40 @@ i.fa {
     flex-direction: column-reverse;
   }
 
-  .gameIcons {
+  .game-icons {
     height: 0;
   }
 
-  .rpsIcons {
+  .rps-icons {
     margin: 0 0.5rem;
   }
 
-  .playerAside .gameIcons {
+  .player-aside .game-icons {
     flex-direction: row;
     height: fit-content;
     margin: 0;
   }
 
-  .playerAside .imageIcon {
+  .player-aside .image-icon {
     width: 5.2rem;
   }
 
-  .playerAside,
-  .computerAside {
+  .player-aside,
+  .computer-aside {
     flex: 0;
   }
 
-  .computerAside {
+  .computer-aside {
     justify-content: center;
 
   }
 
-  .computerAside .gameIcons {
+  .computer-aside .game-icons {
     flex-direction: row;
     height: fit-content;
   }
 
-  .computerAside .avatar {
+  .computer-aside .avatar {
     margin: 0;
     padding-bottom: 0;
     flex: 1;
@@ -419,20 +421,20 @@ i.fa {
     align-items: center;
   }
 
-  .computerAside .dualMode {
+  .computer-aside .dualMode {
     z-index: -1;
     visibility: hidden;
     position: absolute;
   }
 
-  .gameArea {
+  .game-area {
     height: max-content;
     flex-direction: row-reverse;
 
     gap: 1rem;
   }
 
-  .scoreBoard {
+  .score-board {
     margin: 0;
 
     align-items: center;
@@ -442,32 +444,33 @@ i.fa {
     gap: 1rem;
   }
 
-  .scoreBoard .gameIcons {
+  .score-board .game-icons {
     top: 0;
   }
 
-  .scoreBoard .victoryItem {
+  .score-board .victory-item {
     margin-bottom: 0.4rem;
+    margin-top: 0.5rem;
   }
 
-  .scoreBoard .playerUL {
+  .score-board .score-player-ul {
     flex-direction: row;
   }
 
-  .playerUL img,
-  .computerUL img {
+  .score-player-ul img,
+  .score-computer-ul img {
     width: 1.2rem;
     margin: 0 0.4rem;
   }
 
-  .gameBoard {
+  .game-board {
     width: fit-content;
 
     position: absolute;
     visibility: hidden;
   }
 
-  .gameBoard .dualMode {
+  .game-board .dualMode {
     top: auto;
     right: auto;
     left: -1000px;
@@ -484,4 +487,4 @@ i.fa {
   .card__inner {
     padding: 1rem;
   }
-}
+} */
