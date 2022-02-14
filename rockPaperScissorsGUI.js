@@ -50,12 +50,15 @@ function cardReveal(computerChoice) {
   switch(winner) {
     case 'PLR':
       displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+      console.log('You Win!');
       break;
     case 'COM':
       displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+      console.log('You Lose!');
       break;
     case 'DRW':
       displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
+      console.log('Draw Game!');
       break;
   }
 
@@ -68,7 +71,7 @@ function cardReveal(computerChoice) {
   gameFlowPause(flipCard, 4000, card);
 
   // 2nd) DELAY 6.5s THEN present score
-  gameFlowPause(updateScore, 6500, roundNumber);
+  gameFlowPause(updateScore, 6500, winner, roundNumber);
 
   // 3rd) DELAY 5.5s THEN reset board
   gameFlowPause(resetBoard, 5500);
@@ -95,7 +98,7 @@ function flipCard(card) {
   card.classList.toggle('is-flipped');
 }
 
-function updateScore(roundWinner, roundNum) {
+function updateScore(roundWinner, playedRound) {
   const firstRoundPLR = document.querySelector('.js-round1-plr');
   const firstRoundCOM = document.querySelector('.js-round1-com');
 
@@ -114,7 +117,7 @@ function updateScore(roundWinner, roundNum) {
   const pointCounters = document.querySelectorAll('.js-point');
 
 
-  if (roundNum === 1) {
+  if (playedRound === 1) {
     if (roundWinner === 'PLR') {
       firstRoundPLR.classList.remove('fa-circle-o');
       firstRoundPLR.classList.add('fa-circle');
@@ -132,7 +135,7 @@ function updateScore(roundWinner, roundNum) {
     }
   }
 
-  if (roundNum === 2) {
+  if (playedRound === 2) {
     if (roundWinner === 'PLR') {
       secondRoundPLR.classList.remove('fa-circle-o');
       secondRoundPLR.classList.add('fa-circle');
@@ -152,7 +155,7 @@ function updateScore(roundWinner, roundNum) {
     }
   }
 
-  if (roundNum === 3) {
+  if (playedRound === 3) {
     if (roundWinner === 'PLR') {
       thirdRoundPLR.classList.remove('fa-circle-o');
       thirdRoundPLR.classList.add('fa-circle');
@@ -172,7 +175,7 @@ function updateScore(roundWinner, roundNum) {
     }
   }
 
-  if (roundNum === 4) {
+  if (playedRound === 4) {
     if (roundWinner === 'PLR') {
       fourthRoundPLR.classList.remove('fa-circle-o');
       fourthRoundPLR.classList.add('fa-circle');
@@ -192,7 +195,7 @@ function updateScore(roundWinner, roundNum) {
     }
   }
 
-  if (roundNum === 5) {
+  if (playedRound === 5) {
     if (roundWinner === 'PLR') {
       fifthRoundPLR.classList.remove('fa-circle-o');
       fifthRoundPLR.classList.add('fa-circle');
@@ -211,12 +214,12 @@ function updateScore(roundWinner, roundNum) {
   }
 
   roundNumber++;
-  roundNum = roundNumber;
-  console.log(roundNum);
+  playedRound = roundNumber;
+
   // delay this | this is you ask if user wants to play again | while loop | yes play again | no outro
-  if (roundNum === 6) {
+  if (playedRound === 6) {
     console.log('GAME OVER');
-    roundNum = 0;
+    playedRound = 0;
 
     pointCounters.forEach(point => {
       point.classList.remove('fa-circle');
@@ -226,8 +229,8 @@ function updateScore(roundWinner, roundNum) {
       point.classList.add('fa-circle-o');
     });
     roundNumber = 0;
-
   }
+  console.log(`Round ${playedRound}!`);
 } 
 
 // 1) Computer Move
@@ -264,7 +267,7 @@ function computerPlay(playerIconPosition) {
 }
 
 function playerSelection() {
-  // let playerMove = '';
+  console.log(`Round ${roundNumber}!`);
 
   const rock = document.getElementById('js-rock');
   const papr = document.getElementById('js-paper');
@@ -346,11 +349,6 @@ function playerSelection() {
 
         switch(index) {
           case 0:
-            // rock.classList.add('selected');
-
-            // papr.classList.remove('selected');
-            // sisr.classList.remove('selected');
-
             playerClassSetter(rock, papr, sisr, 'selected');
 
             papr.style.zIndex = -1;
@@ -367,10 +365,7 @@ function playerSelection() {
 
           case 1:
 
-            papr.classList.add('selected');
-
-            sisr.classList.remove('selected');
-            rock.classList.remove('selected');
+            playerClassSetter(papr, sisr, rock, 'selected');
 
             sisr.style.zIndex = -1;
             rock.style.zIndex = -1;
@@ -385,10 +380,7 @@ function playerSelection() {
             break;
 
           case 2:
-            sisr.classList.add('selected');
-
-            rock.classList.remove('selected');
-            papr.classList.remove('selected');
+            playerClassSetter(sisr, rock, papr, 'selected');
 
             rock.style.zIndex = -1;
             papr.style.zIndex = -1;
@@ -408,10 +400,11 @@ function playerSelection() {
       else {
         switch(index) {
           case 0:
-            rock.classList.add('selected');
+            playerClassSetter(rock, papr, sisr, 'selected');
+            // rock.classList.add('selected');
 
-            papr.classList.remove('selected');
-            sisr.classList.remove('selected');
+            // papr.classList.remove('selected');
+            // sisr.classList.remove('selected');
 
             translate = 'translate(298px, 317px)';
 
@@ -422,10 +415,11 @@ function playerSelection() {
             break;
 
           case 1:
-            papr.classList.add('selected');
+            playerClassSetter(papr, sisr, rock, 'selected');
+            // papr.classList.add('selected');
 
-            sisr.classList.remove('selected');
-            rock.classList.remove('selected');
+            // sisr.classList.remove('selected');
+            // rock.classList.remove('selected');
 
             translate = 'translate(298px, 77px)';
 
@@ -436,10 +430,11 @@ function playerSelection() {
             break;
 
           case 2:
-            sisr.classList.add('selected');
+            playerClassSetter(sisr, rock, papr, 'selected');
+            // sisr.classList.add('selected');
 
-            rock.classList.remove('selected');
-            papr.classList.remove('selected');
+            // rock.classList.remove('selected');
+            // papr.classList.remove('selected');
             
             translate = 'translate(298px, -164px)';
 
