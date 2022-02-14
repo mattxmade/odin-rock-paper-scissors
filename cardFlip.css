@@ -12,13 +12,14 @@
   --light: #F3F3F3;
 } */
 
+/*code based on Card Flip tutorial by Tyler Potts */
+
 :root {
   --primary: #bb0900;
   --secondary: #ffaf47;
   --dark: #212121;
   --light: #F3F3F3;
 }
-
 
 * {
   margin: 0;
