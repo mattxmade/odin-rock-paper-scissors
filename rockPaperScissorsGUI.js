@@ -9,7 +9,34 @@ let lastWidth = 0;
 let roundNumber = 1;
 let winner = '';
 
+function roundWinner(plrChoice, comChoice) {
+  if (plrChoice === comChoice) {
+    winner = 'DRW';
+  }
+  if (plrChoice === 'ROCK' && comChoice === 'SCISSORS') {
+    winner = 'PLR';
+  }
+  if (plrChoice === 'PAPER' && comChoice === 'ROCK') {
+    winner = 'PLR';
+  }
+  if (plrChoice === 'SCISSORS' && comChoice === 'PAPER') {
+    winner = 'PLR';
+  }
+
+  if (comChoice === 'ROCK' && plrChoice === 'SCISSORS') {
+    winner = 'COM';
+  }
+  if (comChoice === 'PAPER' && plrChoice === 'ROCK') {
+    winner = 'COM';
+  }
+  if (comChoice === 'SCISSORS' && plrChoice === 'PAPER') {
+    winner = 'COM';
+  }
+  return winner;
+}
+
 function cardReveal(computerChoice) {
+  
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
   const displayCpuChoice = document.getElementById('revealRPS');
@@ -18,51 +45,35 @@ function cardReveal(computerChoice) {
 
   roundNumber = roundNumber;
 
-  if (playerMove === computerChoice) {
-    displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'DRW';
-  }
-  if (playerMove === 'ROCK' && computerChoice === 'SCISSORS') {
-    displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'PLR';
-  }
-  if (playerMove === 'PAPER' && computerChoice === 'ROCK') {
-    displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'PLR';
-  }
-  if (playerMove === 'SCISSORS' && computerChoice === 'PAPER') {
-    displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'PLR';
+  const winner = roundWinner(playerMove, computerChoice);
+
+  switch(winner) {
+    case 'PLR':
+      displayCpuChoice.textContent = `YOU WIN! | You : ${playerMove} | CPU : ${computerChoice}`;
+      break;
+    case 'COM':
+      displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
+      break;
+    case 'DRW':
+      displayCpuChoice.textContent = `DRAW GAME!| You : ${playerMove} | CPU : ${computerChoice}`;
+      break;
   }
 
-  if (computerChoice === 'ROCK' && playerMove === 'SCISSORS') {
-    displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'COM';
-  }
-  if (computerChoice === 'PAPER' && playerMove === 'ROCK') {
-    displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'COM';
-  }
-  if (computerChoice === 'SCISSORS' && playerMove === 'PAPER') {
-    displayCpuChoice.textContent = `YOU LOSE! | You : ${playerMove} | CPU : ${computerChoice}`;
-    winner = 'COM';
-  }
-
-  if (playerMove !== '') {
+  if (winner !== '') {
     cardBody.appendChild(displayCpuChoice);
     card.classList.toggle('is-flipped');
   }
 
-  // FIRST pause then flip card
+  // 1st) DELAY 4s THEN flip card
   gameFlowPause(flipCard, 4000, card);
 
-  // THEN present score
-  gameFlowPause(presentScore, 6500, roundNumber);
+  // 2nd) DELAY 6.5s THEN present score
+  gameFlowPause(updateScore, 6500, roundNumber);
 
-  // LAST reset board
+  // 3rd) DELAY 5.5s THEN reset board
   gameFlowPause(resetBoard, 5500);
 
-  // 16 seconds total
+  // Total Time: 16s
 }
 
 function resetBoard() {
@@ -84,7 +95,7 @@ function flipCard(card) {
   card.classList.toggle('is-flipped');
 }
 
-function presentScore(roundWinner, roundNum) {
+function updateScore(roundWinner, roundNum) {
   const firstRoundPLR = document.querySelector('.js-round1-plr');
   const firstRoundCOM = document.querySelector('.js-round1-com');
 
@@ -335,10 +346,12 @@ function playerSelection() {
 
         switch(index) {
           case 0:
-            rock.classList.add('selected');
+            // rock.classList.add('selected');
 
-            papr.classList.remove('selected');
-            sisr.classList.remove('selected');
+            // papr.classList.remove('selected');
+            // sisr.classList.remove('selected');
+
+            playerClassSetter(rock, papr, sisr, 'selected');
 
             papr.style.zIndex = -1;
             sisr.style.zIndex = -1;
@@ -475,8 +488,13 @@ function translateIconPosition(screenSize, selectedIcon, deselected_A, deselecte
 
 function gameFlowPause(callAfter, timeDelay, ...args) {
 
-  console.log('flowTimer');
+  // console.log('flowTimer');
   const flowTimer = setTimeout(callAfter, timeDelay, ...args);
   flowTimer;
+}
 
+function playerClassSetter(selectedMove, secondMove, thirdMove, targetClass) {
+  selectedMove.classList.add(targetClass);
+  secondMove.classList.remove(targetClass);
+  thirdMove.classList.remove(targetClass);
 }
