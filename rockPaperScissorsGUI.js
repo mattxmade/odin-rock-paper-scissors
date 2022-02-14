@@ -38,7 +38,21 @@ function cardReveal(playerChoice, computerChoice) {
   
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
-  const displayCpuChoice = document.getElementById('revealRPS');
+  const displayMessage1 = document.getElementById('reveal-winner-A');
+  const displayMessage2 = document.getElementById('reveal-winner-B');
+
+  displayMessage1.style.textAlign = 'center';
+  displayMessage1.style.fontSize = '2rem';
+
+  displayMessage2.style.fontSize = '1.2rem';
+  displayMessage2.style.textAlign = 'center';
+
+  displayMessage1.style.fontFamily = `'Bebas Neue', cursive`;
+  displayMessage2.style.fontFamily = `'Syne Tactile', cursive`;
+
+  // 'Bebas Neue', cursive;
+  // 'Dancing Script', cursive;
+  // 'Syne Tactile', cursive;
 
   console.log(`player: ${playerChoice}, cpu: ${computerChoice}`);
 
@@ -48,21 +62,25 @@ function cardReveal(playerChoice, computerChoice) {
 
   switch(winner) {
     case 'PLR':
-      displayCpuChoice.textContent = `YOU WIN! | You : ${playerChoice} | CPU : ${computerChoice}`;
+      displayMessage1.textContent = `YOU WIN!`;
+      displayMessage2.textContent = `${playerChoice} beats ${computerChoice}!`;
       console.log('You Win!');
       break;
     case 'COM':
-      displayCpuChoice.textContent = `YOU LOSE! | You : ${playerChoice} | CPU : ${computerChoice}`;
+      displayMessage1.textContent = `YOU LOSE!`;
+      displayMessage2.textContent = `${computerChoice} beats ${playerChoice}!`;
       console.log('You Lose!');
       break;
     case 'DRW':
-      displayCpuChoice.textContent = `DRAW GAME!| You : ${playerChoice} | CPU : ${computerChoice}`;
+      displayMessage1.textContent = `DRAW GAME!`;
+      displayMessage2.textContent = `${playerChoice} matches ${computerChoice}!`;
       console.log('Draw Game!');
       break;
   }
 
   if (winner !== '') {
-    cardBody.appendChild(displayCpuChoice);
+    cardBody.appendChild(displayMessage1);
+    cardBody.appendChild(displayMessage2);
     card.classList.toggle('is-flipped');
   }
 
@@ -80,7 +98,7 @@ function cardReveal(playerChoice, computerChoice) {
 
 // will fail -- translate is global
 function resetBoard() {
-  const resetIcons = document.querySelectorAll('.rpsIcons');
+  const resetIcons = document.querySelectorAll('.rps-icons');
   resetIcons.forEach(icon => {
 
     translate = 'translate(0,0)';
@@ -275,7 +293,7 @@ function playerSelection() {
   const papr = document.getElementById('js-paper');
   const sisr = document.getElementById('js-scissors');
 
-  const undoSelect = document.querySelector('.gameBoard');
+  const undoSelect = document.querySelector('.game-Board');
   const iconSelect = document.querySelectorAll('.js-player-icons');
 
   const deselectAllIcons = document.querySelectorAll('.selectable');
@@ -287,38 +305,38 @@ function playerSelection() {
   // testing
   //console.log(window.innerWidth);
 
-  window.addEventListener('resize', (e) => {
+  // window.addEventListener('resize', (e) => {
 
-    if (window.innerWidth <= 1210) {
-      translateIconPosition('small', rock, papr, sisr);
+  //   if (window.innerWidth <= 1210) {
+  //     translateIconPosition('small', rock, papr, sisr);
 
-      // store last width change
-      lastWidth = window.innerWidth;
+  //     // store last width change
+  //     lastWidth = window.innerWidth;
 
-      // opponent
-      computerPlay(resetPosition);
-    }
-    else {
-      // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
-      if (lastWidth <= 1210) {
-        switch(currentIcon) {
-          case 'ROCK':
-            translateIconPosition('large', rock, papr, sisr);
-            computerPlay(); 
-            break;
-          case 'PAPER':
-            translateIconPosition('large', papr, sisr, rock);
-            computerPlay(); 
-            break;
-          case 'SCISSORS':
-            translateIconPosition('large', sisr, rock, papr);
-            computerPlay();
-            break;
-        }        
-      }
+  //     // opponent
+  //     computerPlay(resetPosition);
+  //   }
+  //   else {
+  //     // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
+  //     if (lastWidth <= 1210) {
+  //       switch(currentIcon) {
+  //         case 'ROCK':
+  //           translateIconPosition('large', rock, papr, sisr);
+  //           computerPlay(); 
+  //           break;
+  //         case 'PAPER':
+  //           translateIconPosition('large', papr, sisr, rock);
+  //           computerPlay(); 
+  //           break;
+  //         case 'SCISSORS':
+  //           translateIconPosition('large', sisr, rock, papr);
+  //           computerPlay();
+  //           break;
+  //       }        
+  //     }
 
-    }
-  });
+  //   }
+  // });
 
   // game area - click to cancel selected move
   // undoSelect.addEventListener('click', (e) => {
@@ -400,52 +418,53 @@ function playerSelection() {
       } 
       
       else {
-        switch(index) {
-          case 0:
-            playerClassSetter(rock, papr, sisr, 'selected');
-            // rock.classList.add('selected');
+        //TODO
+        // switch(index) {
+        //   case 0:
+        //     playerClassSetter(rock, papr, sisr, 'selected');
+        //     // rock.classList.add('selected');
 
-            // papr.classList.remove('selected');
-            // sisr.classList.remove('selected');
+        //     // papr.classList.remove('selected');
+        //     // sisr.classList.remove('selected');
 
-            iconPosition = 'translate(298px, 317px)';
+        //     iconPosition = 'translate(298px, 317px)';
 
-            playerMove = 'ROCK';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
+        //     playerMove = 'ROCK';
+        //     currentIcon = playerMove;
+        //     console.log(`You selected: ${playerMove}`);
 
-            break;
+        //     break;
 
-          case 1:
-            playerClassSetter(papr, sisr, rock, 'selected');
-            // papr.classList.add('selected');
+        //   case 1:
+        //     playerClassSetter(papr, sisr, rock, 'selected');
+        //     // papr.classList.add('selected');
 
-            // sisr.classList.remove('selected');
-            // rock.classList.remove('selected');
+        //     // sisr.classList.remove('selected');
+        //     // rock.classList.remove('selected');
 
-            iconPosition = 'translate(298px, 77px)';
+        //     iconPosition = 'translate(298px, 77px)';
 
-            playerMove = 'PAPER';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
+        //     playerMove = 'PAPER';
+        //     currentIcon = playerMove;
+        //     console.log(`You selected: ${playerMove}`);
 
-            break;
+        //     break;
 
-          case 2:
-            playerClassSetter(sisr, rock, papr, 'selected');
-            // sisr.classList.add('selected');
+        //   case 2:
+        //     playerClassSetter(sisr, rock, papr, 'selected');
+        //     // sisr.classList.add('selected');
 
-            // rock.classList.remove('selected');
-            // papr.classList.remove('selected');
+        //     // rock.classList.remove('selected');
+        //     // papr.classList.remove('selected');
             
-            iconPosition = 'translate(298px, -164px)';
+        //     iconPosition = 'translate(298px, -164px)';
 
-            playerMove = 'SCISSORS';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
+        //     playerMove = 'SCISSORS';
+        //     currentIcon = playerMove;
+        //     console.log(`You selected: ${playerMove}`);
 
-            break;
-        }
+        //     break;
+        // }
       }
 
       // move COM icon 0.8s after PLR icon choice
@@ -456,7 +475,7 @@ function playerSelection() {
       console.log(`Cpu selected: ${comChoice}`);
 
       // Pause for 1s before card flip reveal
-      gameFlowPause(cardReveal, 1000, playerMove, comChoice);
+      gameFlowPause(cardReveal, 1600, playerMove, comChoice);
     });
   });
   //return playerMove;
