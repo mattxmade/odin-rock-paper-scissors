@@ -418,53 +418,52 @@ function playerSelection() {
       } 
       
       else {
-        //TODO
-        // switch(index) {
-        //   case 0:
-        //     playerClassSetter(rock, papr, sisr, 'selected');
-        //     // rock.classList.add('selected');
+        switch(index) {
+          case 0:
+            playerClassSetter(rock, papr, sisr, 'selected');
+            // rock.classList.add('selected');
 
-        //     // papr.classList.remove('selected');
-        //     // sisr.classList.remove('selected');
+            // papr.classList.remove('selected');
+            // sisr.classList.remove('selected');
 
-        //     iconPosition = 'translate(298px, 317px)';
+            iconPosition = 'translate(298px, 317px)';
 
-        //     playerMove = 'ROCK';
-        //     currentIcon = playerMove;
-        //     console.log(`You selected: ${playerMove}`);
+            playerMove = 'ROCK';
+            currentIcon = playerMove;
+            console.log(`You selected: ${playerMove}`);
 
-        //     break;
+            break;
 
-        //   case 1:
-        //     playerClassSetter(papr, sisr, rock, 'selected');
-        //     // papr.classList.add('selected');
+          case 1:
+            playerClassSetter(papr, sisr, rock, 'selected');
+            // papr.classList.add('selected');
 
-        //     // sisr.classList.remove('selected');
-        //     // rock.classList.remove('selected');
+            // sisr.classList.remove('selected');
+            // rock.classList.remove('selected');
 
-        //     iconPosition = 'translate(298px, 77px)';
+            iconPosition = 'translate(298px, 77px)';
 
-        //     playerMove = 'PAPER';
-        //     currentIcon = playerMove;
-        //     console.log(`You selected: ${playerMove}`);
+            playerMove = 'PAPER';
+            currentIcon = playerMove;
+            console.log(`You selected: ${playerMove}`);
 
-        //     break;
+            break;
 
-        //   case 2:
-        //     playerClassSetter(sisr, rock, papr, 'selected');
-        //     // sisr.classList.add('selected');
+          case 2:
+            playerClassSetter(sisr, rock, papr, 'selected');
+            // sisr.classList.add('selected');
 
-        //     // rock.classList.remove('selected');
-        //     // papr.classList.remove('selected');
+            // rock.classList.remove('selected');
+            // papr.classList.remove('selected');
             
-        //     iconPosition = 'translate(298px, -164px)';
+            iconPosition = 'translate(298px, -164px)';
 
-        //     playerMove = 'SCISSORS';
-        //     currentIcon = playerMove;
-        //     console.log(`You selected: ${playerMove}`);
+            playerMove = 'SCISSORS';
+            currentIcon = playerMove;
+            console.log(`You selected: ${playerMove}`);
 
-        //     break;
-        // }
+            break;
+        }
       }
 
       // move COM icon 0.8s after PLR icon choice
