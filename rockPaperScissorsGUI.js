@@ -9,9 +9,6 @@ let lastWidth = 0;
 let roundNumber = 1;
 let winner = '';
 
-let comScoreIcon = '';
-let plrScoreIcon = '';
-
 function cardReveal(computerChoice) {
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
@@ -108,14 +105,10 @@ function presentScore(roundWinner, roundNum) {
     if (roundWinner === 'PLR') {
       firstRoundPLR.classList.remove('fa-circle-o');
       firstRoundPLR.classList.add('fa-circle');
-
-      plrScoreIcon = 'fa-circle';
     }
     else if (roundWinner === 'COM') {
       firstRoundCOM.classList.remove('fa-circle-o');
       firstRoundCOM.classList.add('fa-circle');
-
-      comScoreIcon = 'fa-circle';
     }
     else {
       firstRoundPLR.classList.remove('fa-circle-o');
@@ -123,9 +116,6 @@ function presentScore(roundWinner, roundNum) {
 
       firstRoundPLR.classList.add('fa-dot-circle-o');
       firstRoundCOM.classList.add('fa-dot-circle-o');
-
-      plrScoreIcon = 'fa-dot-circle-o';
-      comScoreIcon = 'fa-dot-circle-o';
     }
   }
 
@@ -139,8 +129,6 @@ function presentScore(roundWinner, roundNum) {
     else if (roundWinner === 'COM') {
       secondRoundCOM.classList.remove('fa-circle-o');
       secondRoundCOM.classList.add('fa-circle');
-
-      comScoreIcon = 'fa-circle';
     }
     else {
       secondRoundPLR.classList.remove('fa-circle-o');
@@ -148,9 +136,6 @@ function presentScore(roundWinner, roundNum) {
 
       secondRoundPLR.classList.add('fa-dot-circle-o');
       secondRoundCOM.classList.add('fa-dot-circle-o');
-
-      plrScoreIcon = 'fa-dot-circle-o';
-      comScoreIcon = 'fa-dot-circle-o';
     }
   }
 
@@ -164,8 +149,6 @@ function presentScore(roundWinner, roundNum) {
     else if (roundWinner === 'COM') {
       thirdRoundCOM.classList.remove('fa-circle-o');
       thirdRoundCOM.classList.add('fa-circle');
-
-      comScoreIcon = 'fa-circle';
     }
     else {
       thirdRoundPLR.classList.remove('fa-circle-o');
@@ -173,9 +156,6 @@ function presentScore(roundWinner, roundNum) {
 
       thirdRoundPLR.classList.add('fa-dot-circle-o');
       thirdRoundCOM.classList.add('fa-dot-circle-o');
-
-      plrScoreIcon = 'fa-dot-circle-o';
-      comScoreIcon = 'fa-dot-circle-o';
     }
   }
 
@@ -189,8 +169,6 @@ function presentScore(roundWinner, roundNum) {
     else if (roundWinner === 'COM') {
       fourthRoundCOM.classList.remove('fa-circle-o');
       fourthRoundCOM.classList.add('fa-circle');
-
-      comScoreIcon = 'fa-circle';
     }
     else {
       fourthRoundPLR.classList.remove('fa-circle-o');
@@ -198,9 +176,6 @@ function presentScore(roundWinner, roundNum) {
 
       fourthRoundPLR.classList.add('fa-dot-circle-o');
       fourthRoundCOM.classList.add('fa-dot-circle-o');
-
-      plrScoreIcon = 'fa-dot-circle-o';
-      comScoreIcon = 'fa-dot-circle-o';
     }
   }
 
@@ -208,14 +183,10 @@ function presentScore(roundWinner, roundNum) {
     if (roundWinner === 'PLR') {
       fifthRoundPLR.classList.remove('fa-circle-o');
       fifthRoundPLR.classList.add('fa-circle');
-
-      plrScoreIcon = 'fa-circle';
     }
     else if (roundWinner === 'COM') {
       fifthRoundCOM.classList.remove('fa-circle-o');
       fifthRoundCOM.classList.add('fa-circle');
-
-      comScoreIcon = 'fa-circle';
     }
     else {
       fifthRoundPLR.classList.remove('fa-circle-o');
@@ -223,9 +194,6 @@ function presentScore(roundWinner, roundNum) {
 
       fifthRoundPLR.classList.add('fa-dot-circle-o');
       fifthRoundCOM.classList.add('fa-dot-circle-o');
-
-      plrScoreIcon = 'fa-dot-circle-o';
-      comScoreIcon = 'fa-dot-circle-o';
     }
   }
 
@@ -238,9 +206,6 @@ function presentScore(roundWinner, roundNum) {
     roundNum = 0;
 
     pointCounters.forEach(point => {
-      // point.classList.remove(plrScoreIcon);
-      // point.classList.remove(comScoreIcon);
-
       point.classList.remove('fa-circle');
       point.classList.remove('fa-dot-circle-o');
 
