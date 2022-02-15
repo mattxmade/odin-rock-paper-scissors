@@ -305,38 +305,38 @@ function playerSelection() {
   // testing
   //console.log(window.innerWidth);
 
-  // window.addEventListener('resize', (e) => {
+  window.addEventListener('resize', (e) => {
 
-  //   if (window.innerWidth <= 1210) {
-  //     translateIconPosition('small', rock, papr, sisr);
+    if (window.innerWidth <= 1210) {
+      translateIconPosition('small', rock, papr, sisr);
 
-  //     // store last width change
-  //     lastWidth = window.innerWidth;
+      // store last width change
+      lastWidth = window.innerWidth;
 
-  //     // opponent
-  //     computerPlay(resetPosition);
-  //   }
-  //   else {
-  //     // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
-  //     if (lastWidth <= 1210) {
-  //       switch(currentIcon) {
-  //         case 'ROCK':
-  //           translateIconPosition('large', rock, papr, sisr);
-  //           computerPlay(); 
-  //           break;
-  //         case 'PAPER':
-  //           translateIconPosition('large', papr, sisr, rock);
-  //           computerPlay(); 
-  //           break;
-  //         case 'SCISSORS':
-  //           translateIconPosition('large', sisr, rock, papr);
-  //           computerPlay();
-  //           break;
-  //       }        
-  //     }
+      // opponent
+      computerPlay(resetPosition);
+    }
+    else {
+      // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
+      if (lastWidth <= 1210) {
+        switch(currentIcon) {
+          case 'ROCK':
+            translateIconPosition('large', rock, papr, sisr);
+            computerPlay(); 
+            break;
+          case 'PAPER':
+            translateIconPosition('large', papr, sisr, rock);
+            computerPlay(); 
+            break;
+          case 'SCISSORS':
+            translateIconPosition('large', sisr, rock, papr);
+            computerPlay();
+            break;
+        }        
+      }
 
-  //   }
-  // });
+    }
+  });
 
   // game area - click to cancel selected move
   // undoSelect.addEventListener('click', (e) => {
