@@ -84,16 +84,24 @@ function cardReveal(playerChoice, computerChoice) {
     card.classList.toggle('is-flipped');
   }
 
-  // 1st) DELAY 4s THEN flip card
-  gameFlowPause(flipCard, 4000, card);
+  if (window.innerWidth > 1210) {
+    // 1st) DELAY 4s THEN flip card
+    gameFlowPause(flipCard, 4000, card);
 
-  // 2nd) DELAY 6.5s THEN present score
-  gameFlowPause(updateScore, 6500, winner, roundNumber);
+    // 2nd) DELAY 6.5s THEN present score
+    gameFlowPause(updateScore, 6500, winner, roundNumber);
 
-  // 3rd) DELAY 5.5s THEN reset board
-  gameFlowPause(resetBoard, 5500);
+    // 3rd) DELAY 5.5s THEN reset board
+    gameFlowPause(resetBoard, 5500);
 
-  // Total Time: 16s
+    // Total Time: 16s
+  }
+  else {
+    flipCard(card);
+    updateScore(winner, roundNumber);
+    resetBoard();
+  }
+
 }
 
 // will fail -- translate is global
@@ -101,14 +109,16 @@ function resetBoard() {
   const resetIcons = document.querySelectorAll('.rps-icons');
   resetIcons.forEach(icon => {
 
-    translate = 'translate(0,0)';
+    iconPosition = 'translate(0,0)';
     icon.style.position = 'relative';
-    icon.style.transform = translate;
+    icon.style.transform = iconPosition;
     icon.style.zIndex = 0;
     icon.style.visibility = 'visible';
 
     icon.classList.remove('visible');
     icon.classList.remove('selected');
+
+    computerIcon(iconPosition);
   });
 }
 
@@ -237,7 +247,7 @@ function updateScore(roundWinner, playedRound) {
   // delay this | this is you ask if user wants to play again | while loop | yes play again | no outro
   if (playedRound === 6) {
     console.log('GAME OVER');
-    playedRound = 0;
+    playedRound = 1;
 
     pointCounters.forEach(point => {
       point.classList.remove('fa-circle');
@@ -246,7 +256,7 @@ function updateScore(roundWinner, playedRound) {
 
       point.classList.add('fa-circle-o');
     });
-    roundNumber = 0;
+    roundNumber = 1;
   }
   console.log(`Round ${playedRound}!`);
 } 
@@ -314,27 +324,25 @@ function playerSelection() {
       lastWidth = window.innerWidth;
 
       // opponent
-      computerPlay(resetPosition);
+      computerIcon(resetPosition);
     }
-    else {
-      // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
-      if (lastWidth <= 1210) {
-        switch(currentIcon) {
-          case 'ROCK':
-            translateIconPosition('large', rock, papr, sisr);
-            computerPlay(); 
-            break;
-          case 'PAPER':
-            translateIconPosition('large', papr, sisr, rock);
-            computerPlay(); 
-            break;
-          case 'SCISSORS':
-            translateIconPosition('large', sisr, rock, papr);
-            computerPlay();
-            break;
-        }        
-      }
 
+    // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
+    else if (lastWidth <= 1210) {
+      switch(currentIcon) {
+        case 'ROCK':
+          translateIconPosition('large', rock, papr, sisr);
+          computerIcon('translate(-330.05px, 0px)'); 
+          break;
+        case 'PAPER':
+          translateIconPosition('large', papr, sisr, rock);
+          computerIcon('translate(-330.05px, 0px)'); 
+          break;
+        case 'SCISSORS':
+          translateIconPosition('large', sisr, rock, papr);
+          computerIcon('translate(-330.05px, 0px)');
+          break;
+      }       
     }
   });
 
@@ -466,15 +474,28 @@ function playerSelection() {
         }
       }
 
-      // move COM icon 0.8s after PLR icon choice
-      gameFlowPause(computerIcon, 800, iconPosition);
+      if (window.innerWidth > 1210) {
+        // move COM icon 0.8s after PLR icon choice
+        gameFlowPause(computerIcon, 800, iconPosition);
 
-      // new COM move
-      const comChoice = computerPlay();
-      console.log(`Cpu selected: ${comChoice}`);
+        // new COM move
+        const comChoice = computerPlay();
+        console.log(`Cpu selected: ${comChoice}`);
 
-      // Pause for 1s before card flip reveal
-      gameFlowPause(cardReveal, 1600, playerMove, comChoice);
+        // Pause for 1s before card flip reveal
+        gameFlowPause(cardReveal, 1600, playerMove, comChoice);
+      }
+
+      else {
+        // no delay on mobile version
+        computerIcon(iconPosition);
+
+        // new COM move
+        const comChoice = computerPlay();
+        console.log(`Cpu selected: ${comChoice}`);
+
+        cardReveal(playerMove, comChoice);
+      }
     });
   });
   //return playerMove;
@@ -484,7 +505,6 @@ playerSelection();
 
 // moves icon if viewport width <= 1210px | small viewport game version
 function translateIconPosition(screenSize, selectedIcon, deselected_A, deselected_B) {
-
   if (screenSize === 'small') {
     selectedIcon.style.transform = resetPosition;
     deselected_A.style.transform = resetPosition;
@@ -497,7 +517,7 @@ function translateIconPosition(screenSize, selectedIcon, deselected_A, deselecte
 
   if (screenSize === 'large') {
     selectedIcon.style.position = 'relative';
-    selectedIcon.style.transform = translate;
+    selectedIcon.style.transform = iconPosition;
     selectedIcon.style.zIndex = 0;
 
     deselected_A.style.position = 'relative';
