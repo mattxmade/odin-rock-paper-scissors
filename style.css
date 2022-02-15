@@ -97,6 +97,7 @@ main {
 }
 
 .selectable:hover,
+.selectable:active,
 .selected {
   z-index: 2;
   position: relative; 
