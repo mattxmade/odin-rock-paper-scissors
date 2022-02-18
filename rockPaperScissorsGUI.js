@@ -1,14 +1,173 @@
 
-let currentIcon = '';
-let iconPosition = '';
-const resetPosition = 'translate(0,0)';
-
+//---Global Variables---\\
 let lastWidth = 0;
+let gameRound = 1;
+let currentIcon = '';
 
-let roundNumber = 1;
-let winner = '';
+let playerScore = 0;
+let computScore = 0;
+let drawScore   = 0;
+
+// --   Icon Selector      --\\
+//--- Rock Paper Scissors ---\\
+function playerSelection() {
+  let playerChoice = '';
+  let gameRound = 1;
+
+  let animateIcon;
+
+  // Translate icon to position when played
+  const resetIcon    = 'translate(0,0)' 
+  const rockIconPlay = 'translate(298px, 317px)';
+  const paprIconPlay = 'translate(298px, 77px)';
+  const sisrIconPlay = 'translate(298px, -164px)';
+
+  // Elements
+  const rock = document.getElementById('js-rock');
+  const papr = document.getElementById('js-paper');
+  const sisr = document.getElementById('js-scissors');
+
+  const iconSelect = document.querySelectorAll('.js-player-icons');
+
+  // Icons array | Passed to functions
+  const rockGroup = [rock, papr, sisr];
+  const paprGroup = [papr, sisr, rock]
+  const sisrGroup = [sisr, rock, papr];
+
+  //---START GAME---\\
+  console.log(`Round ${gameRound}!`);
+  updateRound(gameRound);
+
+  iconSelect.forEach(icon => {
+    icon.addEventListener('click', (e) => {
+
+      // new PLR move
+      playerChoice = e.target.id.toUpperCase();
+
+      // new COM move
+      const computerChoice = computerPlay();
+      
+      if (window.innerWidth > 1210) {
+
+        animateIcon = 'play';
+
+        switch(playerChoice) {
+          case 'ROCK':
+            playerClassSetter(rockGroup, 'selected');
+            translateIconPosition('large', rockGroup, rockIconPlay);
+            break;
+
+          case 'PAPER':
+            playerClassSetter(paprGroup, 'selected');
+            translateIconPosition('large', paprGroup, paprIconPlay);
+            break;
+
+          case 'SCISSORS':
+            playerClassSetter(sisrGroup, 'selected');
+            translateIconPosition('large', sisrGroup, sisrIconPlay);
+            break;
+        }
+
+        console.log(`Player selected: ${playerChoice}, CPU selected: ${computerChoice}`);
+
+        // move COM icon 0.8s after PLR icon choice
+        gameFlowPause(computerIcon, 800, animateIcon);
+
+        // Pause for 1s before card flip reveal
+        gameFlowPause(cardReveal, 1600, playerChoice, computerChoice, gameRound);
+      }
+
+      else { // small devices
+
+        animateIcon = 'static';
+
+        switch(playerChoice) {
+          case 'ROCK':
+            playerClassSetter(rockGroup, 'selected');
+            translateIconPosition('small', rockGroup, rockIconPlay);
+            break;
+
+          case 'PAPER':
+            playerClassSetter(paprGroup, 'selected');
+            translateIconPosition('small', paprGroup, paprIconPlay);
+            break;
+
+          case 'SCISSORS':
+            playerClassSetter(sisrGroup, 'selected');
+            translateIconPosition('small', sisrGroup, sisrIconPlay);
+            break;
+        }
+
+        // no delays
+        console.log(`Player selected: ${playerChoice}, CPU selected: ${computerChoice}`);
+        
+        console.log(gameRound);
+        // Declate winner and update scores
+        const winner = roundWinner(playerChoice, computerChoice);
+        updateScore(winner, gameRound);
+      }
+    });
+  });
+
+  // Track icons on viewport width change
+  window.addEventListener('resize', (e) => {
+
+    if (window.innerWidth <= 1210) {
+      //group doesn't matter as device target is small - icons remain static
+      translateIconPosition('small', rockGroup, resetIcon);
+
+      // store last width change
+      lastWidth = window.innerWidth;
+
+      // opponent
+      computerIcon('static');
+    }
+
+    // rest board if last width was below 1210 | widths bigger than this wont retirgger actions
+    else {
+        lastWidth === 0 ? lastWidth = window.innerWidth : lastWidth;
+        if (lastWidth <= 1210) resetBoard();
+    }
+  });
+  // Ready for next player choice;
+  playerChoice = 'none';
+}
+
+// Computer Move
+function computerPlay() {
+  const moveSelection = ['ROCK', 'PAPER', 'SCISSORS'];
+  return moveSelection[Math.floor(Math.random() * moveSelection.length)];
+}
+
+function computerIcon(positionIcon) {
+  const cpuIcon = document.querySelector('.js-computer-icon');
+
+  if (window.innerWidth <= 1210) {
+    cpuIcon.style.zIndex = -1;
+    cpuIcon.style.visibility = 'hidden';
+    cpuIcon.style.position = 'absolute';
+  }
+
+  else {
+    
+    cpuIcon.style.position = 'relative';
+
+    if (positionIcon === 'play') {
+      cpuIcon.style.transform = 'translate(-330.05px, 0px)';
+      cpuIcon.style.zIndex = -1;
+      cpuIcon.style.visibility = 'hidden';
+    }
+
+    else {
+      cpuIcon.style.transform = 'translate(0,0)';
+      cpuIcon.style.zIndex = 0;
+      cpuIcon.style.visibility = 'visible';
+    }
+  }
+}
 
 function roundWinner(plrChoice, comChoice) {
+  // Player Wins
   if (plrChoice === comChoice) {
     winner = 'DRW';
   }
@@ -22,6 +181,7 @@ function roundWinner(plrChoice, comChoice) {
     winner = 'PLR';
   }
 
+  // Computer Wins
   if (comChoice === 'ROCK' && plrChoice === 'SCISSORS') {
     winner = 'COM';
   }
@@ -31,11 +191,20 @@ function roundWinner(plrChoice, comChoice) {
   if (comChoice === 'SCISSORS' && plrChoice === 'PAPER') {
     winner = 'COM';
   }
+
   return winner;
 }
 
-function cardReveal(playerChoice, computerChoice) {
-  
+function updateRound(gameRound) {
+  const victoryItemBox  = document.querySelector('.victory-item');
+  const gameRoundNunber = document.querySelector('.round-number');
+
+  gameRoundNunber.textContent = gameRound;
+  victoryItemBox.appendChild(gameRoundNunber);
+}
+
+function cardReveal(playerChoice, computerChoice, currentRound) {
+
   const card = document.querySelector('.card__inside');
   const cardBody = document.querySelector('.card__body');
   const displayMessage1 = document.getElementById('reveal-winner-A');
@@ -50,31 +219,23 @@ function cardReveal(playerChoice, computerChoice) {
   displayMessage1.style.fontFamily = `'Bebas Neue', cursive`;
   displayMessage2.style.fontFamily = `'Syne Tactile', cursive`;
 
-  // 'Bebas Neue', cursive;
-  // 'Dancing Script', cursive;
-  // 'Syne Tactile', cursive;
-
-  console.log(`player: ${playerChoice}, cpu: ${computerChoice}`);
-
-  roundNumber = roundNumber;
-
   const winner = roundWinner(playerChoice, computerChoice);
 
   switch(winner) {
     case 'PLR':
       displayMessage1.textContent = `YOU WIN!`;
       displayMessage2.textContent = `${playerChoice} beats ${computerChoice}!`;
-      console.log('You Win!');
+      console.log(`YOU WIN! ${playerChoice} beats ${computerChoice}!`);
       break;
     case 'COM':
       displayMessage1.textContent = `YOU LOSE!`;
       displayMessage2.textContent = `${computerChoice} beats ${playerChoice}!`;
-      console.log('You Lose!');
+      console.log(`YOU LOSE! ${computerChoice} beats ${playerChoice}!`);
       break;
     case 'DRW':
       displayMessage1.textContent = `DRAW GAME!`;
       displayMessage2.textContent = `${playerChoice} matches ${computerChoice}!`;
-      console.log('Draw Game!');
+      console.log(`DRAW GAME! ${computerChoice} matches ${playerChoice}!`);
       break;
   }
 
@@ -84,42 +245,16 @@ function cardReveal(playerChoice, computerChoice) {
     card.classList.toggle('is-flipped');
   }
 
-  if (window.innerWidth > 1210) {
-    // 1st) DELAY 4s THEN flip card
-    gameFlowPause(flipCard, 4000, card);
+  // 1st) DELAY 4s THEN flip card
+  gameFlowPause(flipCard, 4000, card);
 
-    // 2nd) DELAY 6.5s THEN present score
-    gameFlowPause(updateScore, 6500, winner, roundNumber);
+  // 2nd) DELAY 6.5s THEN present score
+  gameFlowPause(updateScore, 6500, winner, currentRound);
 
-    // 3rd) DELAY 5.5s THEN reset board
-    gameFlowPause(resetBoard, 5500);
+  // 3rd) DELAY 5.5s THEN reset board
+  gameFlowPause(resetBoard, 5500);
 
-    // Total Time: 16s
-  }
-  else {
-    flipCard(card);
-    updateScore(winner, roundNumber);
-    resetBoard();
-  }
-
-}
-
-// will fail -- translate is global
-function resetBoard() {
-  const resetIcons = document.querySelectorAll('.rps-icons');
-  resetIcons.forEach(icon => {
-
-    iconPosition = 'translate(0,0)';
-    icon.style.position = 'relative';
-    icon.style.transform = iconPosition;
-    icon.style.zIndex = 0;
-    icon.style.visibility = 'visible';
-
-    icon.classList.remove('visible');
-    icon.classList.remove('selected');
-
-    computerIcon(iconPosition);
-  });
+  // Total Time: 16s
 }
 
 function flipCard(card) {
@@ -142,17 +277,20 @@ function updateScore(roundWinner, playedRound) {
   const fifthRoundPLR = document.querySelector('.js-round5-plr');
   const fifthRoundCOM = document.querySelector('.js-round5-com');
 
-  const pointCounters = document.querySelectorAll('.js-point');
-
+  playedRound = gameRound;
 
   if (playedRound === 1) {
     if (roundWinner === 'PLR') {
       firstRoundPLR.classList.remove('fa-circle-o');
       firstRoundPLR.classList.add('fa-circle');
+
+      playerScore+=1;
     }
     else if (roundWinner === 'COM') {
       firstRoundCOM.classList.remove('fa-circle-o');
       firstRoundCOM.classList.add('fa-circle');
+
+      computScore+=1;
     }
     else {
       firstRoundPLR.classList.remove('fa-circle-o');
@@ -160,6 +298,8 @@ function updateScore(roundWinner, playedRound) {
 
       firstRoundPLR.classList.add('fa-dot-circle-o');
       firstRoundCOM.classList.add('fa-dot-circle-o');
+
+      drawScore+=1;
     }
   }
 
@@ -168,11 +308,13 @@ function updateScore(roundWinner, playedRound) {
       secondRoundPLR.classList.remove('fa-circle-o');
       secondRoundPLR.classList.add('fa-circle');
 
-      plrScoreIcon = 'fa-circle';
+      playerScore+=1;
     }
     else if (roundWinner === 'COM') {
       secondRoundCOM.classList.remove('fa-circle-o');
       secondRoundCOM.classList.add('fa-circle');
+
+      computScore+=1;
     }
     else {
       secondRoundPLR.classList.remove('fa-circle-o');
@@ -180,6 +322,8 @@ function updateScore(roundWinner, playedRound) {
 
       secondRoundPLR.classList.add('fa-dot-circle-o');
       secondRoundCOM.classList.add('fa-dot-circle-o');
+      
+      drawScore+=1;
     }
   }
 
@@ -188,11 +332,13 @@ function updateScore(roundWinner, playedRound) {
       thirdRoundPLR.classList.remove('fa-circle-o');
       thirdRoundPLR.classList.add('fa-circle');
 
-      plrScoreIcon = 'fa-circle';
+      playerScore+=1;
     }
     else if (roundWinner === 'COM') {
       thirdRoundCOM.classList.remove('fa-circle-o');
       thirdRoundCOM.classList.add('fa-circle');
+
+      computScore+=1;
     }
     else {
       thirdRoundPLR.classList.remove('fa-circle-o');
@@ -200,6 +346,8 @@ function updateScore(roundWinner, playedRound) {
 
       thirdRoundPLR.classList.add('fa-dot-circle-o');
       thirdRoundCOM.classList.add('fa-dot-circle-o');
+
+      drawScore+=1;
     }
   }
 
@@ -208,11 +356,13 @@ function updateScore(roundWinner, playedRound) {
       fourthRoundPLR.classList.remove('fa-circle-o');
       fourthRoundPLR.classList.add('fa-circle');
 
-      plrScoreIcon = 'fa-circle';
+      playerScore+=1;
     }
     else if (roundWinner === 'COM') {
       fourthRoundCOM.classList.remove('fa-circle-o');
       fourthRoundCOM.classList.add('fa-circle');
+
+      computScore+=1;
     }
     else {
       fourthRoundPLR.classList.remove('fa-circle-o');
@@ -220,6 +370,8 @@ function updateScore(roundWinner, playedRound) {
 
       fourthRoundPLR.classList.add('fa-dot-circle-o');
       fourthRoundCOM.classList.add('fa-dot-circle-o');
+
+      drawScore+=1;
     }
   }
 
@@ -227,10 +379,14 @@ function updateScore(roundWinner, playedRound) {
     if (roundWinner === 'PLR') {
       fifthRoundPLR.classList.remove('fa-circle-o');
       fifthRoundPLR.classList.add('fa-circle');
+
+      playerScore+=1;
     }
     else if (roundWinner === 'COM') {
       fifthRoundCOM.classList.remove('fa-circle-o');
       fifthRoundCOM.classList.add('fa-circle');
+
+      computScore+=1;
     }
     else {
       fifthRoundPLR.classList.remove('fa-circle-o');
@@ -238,311 +394,215 @@ function updateScore(roundWinner, playedRound) {
 
       fifthRoundPLR.classList.add('fa-dot-circle-o');
       fifthRoundCOM.classList.add('fa-dot-circle-o');
+
+      drawScore+=1;
     }
   }
 
-  roundNumber++;
-  playedRound = roundNumber;
+  console.log(playerScore, computScore, drawScore);
 
-  // delay this | this is you ask if user wants to play again | while loop | yes play again | no outro
-  if (playedRound === 6) {
-    console.log('GAME OVER');
-    playedRound = 1;
+  playedRound++;
+  gameRound = playedRound;
+
+  if (playedRound < 6) {
+    updateRound(gameRound);
+    console.log(`Round ${gameRound}!`);
+  }
+
+  const pointCounters = document.querySelectorAll('.js-point');
+
+  if (playedRound > 5) {
+    let gameWinner = '';
+
+    if (playerScore > computScore) gameWinner = 'PLAYER';
+    if (playerScore < computScore) gameWinner = 'COMPUTER';
+    if (playerScore === computScore) gameWinner = 'DRAW';
 
     pointCounters.forEach(point => {
+
       point.classList.remove('fa-circle');
       point.classList.remove('fa-dot-circle-o');
 
-
       point.classList.add('fa-circle-o');
     });
-    roundNumber = 1;
-  }
-  console.log(`Round ${playedRound}!`);
-} 
 
-// 1) Computer Move
-function computerPlay() {
+    console.log('NEW GAME OR GAME OVER?');
 
-  // moves stored inside array
-  const moveSelection = ['ROCK', 'PAPER', 'SCISSORS'];
-  return moveSelection[Math.floor(Math.random() * moveSelection.length)];
-}
-
-function computerIcon(playerIconPosition) {
-  const cpuIcon = document.querySelector('.js-computer-icon');
-  
-  // check viewport width
-  if (window.innerWidth <= 1210) {
-    cpuIcon.style.zIndex = -1;
-    cpuIcon.style.visibility = 'hidden';
-    cpuIcon.style.position = 'absolute';
-  }
-  else {
-    cpuIcon.style.position = 'relative';
-    if (playerIconPosition !== 'translate(0,0)' && playerIconPosition !== '') {
-      cpuIcon.style.transform = 'translate(-330.05px, 0px)';
-      cpuIcon.style.zIndex = -1;
-      cpuIcon.style.visibility = 'hidden';
-    }
-    else {
-      cpuIcon.style.transform = 'translate(0,0)';
-      cpuIcon.style.zIndex = 0;
-      cpuIcon.style.visibility = 'visible';
-    }
+    // need to tally points
+    resetBoard();
+    winnerPopup(gameWinner, playerScore, computScore, drawScore);
+    gameRound = 1;
   }
 }
 
-function playerSelection() {
-  console.log(`Round ${roundNumber}!`);
+// Winner Pop-up
+function winnerPopup(winner, scorePlayer, scoreCom, scoreDraw) {
+  console.log(winner);
 
-  let playerMove = '';
+  const makeInvisible = document.querySelector('main');
+  makeInvisible.style.visibility = 'hidden';
 
+  const popup = document.querySelector('.winner-popup');
 
-  const rock = document.getElementById('js-rock');
-  const papr = document.getElementById('js-paper');
-  const sisr = document.getElementById('js-scissors');
+  const displayWinner = document.querySelector('.popup-title');
+  const displayImage  = document.querySelector('.popup-image');
+  const popupMessage  = document.querySelector('.popup-message');
 
-  const undoSelect = document.querySelector('.game-Board');
-  const iconSelect = document.querySelectorAll('.js-player-icons');
+  const checkBoxes = document.querySelectorAll('.check-box');
+  checkBoxes[0].style.visibility = 'visible';
+  checkBoxes[1].style.visibility = 'visible';
 
-  const deselectAllIcons = document.querySelectorAll('.selectable');
+  switch(winner) {
+    case 'PLAYER':
+      displayWinner.textContent = 'You Won!';
+      displayWinner.style.color = 'turquoise';
+      popupMessage.textContent = '"Victory Is Yours!..."'
+      popupMessage.style.color = 'yellow';
+      displayImage.src = 'images/passive3.png';
+      break;
 
-  rock.style.position = 'relative';
-  papr.style.position = 'relative';
-  sisr.style.position = 'relative';
+    case 'COMPUTER':
+      displayWinner.textContent = 'You Lost!';
+      displayWinner.style.color = 'red';
+      popupMessage.textContent = '"A Heavy Defeat!..."'
+      popupMessage.style.color = 'red';
+      displayImage.src = 'images/active5.png';
+      break;
 
-  // testing
-  //console.log(window.innerWidth);
+    case 'DRAW':
+      displayWinner.textContent = 'Draw Game!';
+      displayWinner.style.color = 'white';
+      popupMessage.textContent = '"A Decider Is Needed!..."'
+      popupMessage.style.color = 'yellow';
+      displayImage.src = 'images/active2.png';
+      break;
+  }
 
-  window.addEventListener('resize', (e) => {
+  popup.insertBefore(displayWinner, popup.childNodes[0]);
+  popup.insertBefore(popupMessage, popup.childNodes[2]);
 
-    if (window.innerWidth <= 1210) {
-      translateIconPosition('small', rock, papr, sisr);
+  const displayScore = document.querySelector('.popup-score');
+  displayScore.style.color = 'darkgray'
+  displayScore.textContent = `YOU: ${scorePlayer} | CPU: ${scoreCom} | Draws: ${scoreDraw}`;
 
-      // store last width change
-      lastWidth = window.innerWidth;
+  popup.insertBefore(displayScore, popup.childNodes[7]);
+  popup.style.visibility = 'visible';
 
-      // opponent
-      computerIcon(resetPosition);
-    }
-
-    // Viewports larger than 1210px | lastWidth stores last size below 1210 - does not update if current viewport is > 1210
-    else if (lastWidth <= 1210) {
-      switch(currentIcon) {
-        case 'ROCK':
-          translateIconPosition('large', rock, papr, sisr);
-          computerIcon('translate(-330.05px, 0px)'); 
-          break;
-        case 'PAPER':
-          translateIconPosition('large', papr, sisr, rock);
-          computerIcon('translate(-330.05px, 0px)'); 
-          break;
-        case 'SCISSORS':
-          translateIconPosition('large', sisr, rock, papr);
-          computerIcon('translate(-330.05px, 0px)');
-          break;
-      }       
-    }
-  });
-
-  // game area - click to cancel selected move
-  // undoSelect.addEventListener('click', (e) => {
-
-  //   if (window.innerWidth > 1210) {
-  //     undoSelect.style.cursor = 'default';
-
-  //     deselectAllIcons.forEach(icon => {
-  //       icon.classList.remove('visible');
-  //       icon.classList.remove('selected');
-
-  //       rock.style.transform = resetPosition;
-  //       papr.style.transform = resetPosition;
-  //       sisr.style.transform = resetPosition;
-
-  //       rock.style.zIndex = 1;
-  //       papr.style.zIndex = 1;
-  //       sisr.style.zIndex = 1;
-  //     });
-  //   }
-  //   const delayCpuMove = setTimeout(computerPlay, 500, resetPosition);
-  //   delayCpuMove;
-  // });
-
-  iconSelect.forEach((icon, index) => {
-
-    icon.addEventListener('click', (e) => {
-      if (window.innerWidth > 1210) {
-        // undoSelect.style.cursor = 'pointer';
-
-        switch(index) {
-          case 0:
-            playerClassSetter(rock, papr, sisr, 'selected');
-
-            papr.style.zIndex = -1;
-            sisr.style.zIndex = -1;
-            
-            iconPosition = 'translate(298px, 317px)';
-            rock.style.transform = iconPosition;
-
-            playerMove = 'ROCK';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-
-          case 1:
-
-            playerClassSetter(papr, sisr, rock, 'selected');
-
-            sisr.style.zIndex = -1;
-            rock.style.zIndex = -1;
-
-            iconPosition = 'translate(298px, 77px)';
-            papr.style.transform = iconPosition;
-
-            playerMove = 'PAPER';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-
-          case 2:
-            playerClassSetter(sisr, rock, papr, 'selected');
-
-            rock.style.zIndex = -1;
-            papr.style.zIndex = -1;
-
-            iconPosition = 'translate(298px, -164px)';
-            sisr.style.transform = iconPosition;
-
-            playerMove = 'SCISSORS';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-        }
-
-      } 
-      
-      else {
-        switch(index) {
-          case 0:
-            playerClassSetter(rock, papr, sisr, 'selected');
-            // rock.classList.add('selected');
-
-            // papr.classList.remove('selected');
-            // sisr.classList.remove('selected');
-
-            iconPosition = 'translate(298px, 317px)';
-
-            playerMove = 'ROCK';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-
-          case 1:
-            playerClassSetter(papr, sisr, rock, 'selected');
-            // papr.classList.add('selected');
-
-            // sisr.classList.remove('selected');
-            // rock.classList.remove('selected');
-
-            iconPosition = 'translate(298px, 77px)';
-
-            playerMove = 'PAPER';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-
-          case 2:
-            playerClassSetter(sisr, rock, papr, 'selected');
-            // sisr.classList.add('selected');
-
-            // rock.classList.remove('selected');
-            // papr.classList.remove('selected');
-            
-            iconPosition = 'translate(298px, -164px)';
-
-            playerMove = 'SCISSORS';
-            currentIcon = playerMove;
-            console.log(`You selected: ${playerMove}`);
-
-            break;
-        }
+  checkBoxes.forEach(checker => {
+    checker.addEventListener('click', (e) => {
+      if (e.target.id === 'yes')  {
+        checkBoxes[0].style.visibility = 'hidden';
+        checkBoxes[1].style.visibility = 'hidden';
+        popup.style.visibility = 'hidden';
+        playerScore = 0;
+        computScore = 0;
+        drawScore   = 0;
+        gameRound = 1;
+        updateRound(gameRound);
+        makeInvisible.style.visibility = 'visible';
+        resetBoard();
       }
-
-      if (window.innerWidth > 1210) {
-        // move COM icon 0.8s after PLR icon choice
-        gameFlowPause(computerIcon, 800, iconPosition);
-
-        // new COM move
-        const comChoice = computerPlay();
-        console.log(`Cpu selected: ${comChoice}`);
-
-        // Pause for 1s before card flip reveal
-        gameFlowPause(cardReveal, 1600, playerMove, comChoice);
-      }
-
       else {
-        // no delay on mobile version
-        computerIcon(iconPosition);
 
-        // new COM move
-        const comChoice = computerPlay();
-        console.log(`Cpu selected: ${comChoice}`);
-
-        cardReveal(playerMove, comChoice);
       }
     });
   });
-  //return playerMove;
 }
 
-playerSelection();
+//
+function resetBoard() {
+  const resetIcons = document.querySelectorAll('.rps-icons');
+  const playerCard = document.querySelector('.card-area-left');
 
-// moves icon if viewport width <= 1210px | small viewport game version
-function translateIconPosition(screenSize, selectedIcon, deselected_A, deselected_B) {
-  if (screenSize === 'small') {
-    selectedIcon.style.transform = resetPosition;
-    deselected_A.style.transform = resetPosition;
-    deselected_B.style.transform = resetPosition;
 
-    selectedIcon.style.zIndex = 1;
-    deselected_A.style.zIndex = 1;
-    deselected_B.style.zIndex = 1;
-  }
+  resetIcons.forEach(icon => {
+    // Reset icons
+    const iconPosition = 'translate(0,0)';
+    icon.style.position = 'relative';
+
+    icon.style.transform = iconPosition;
+    icon.style.zIndex = 0;
+
+    icon.style.visibility = 'visible';
+      
+    // Remove highlight from player selected icon
+    icon.classList.remove('visible');
+    icon.classList.remove('selected');
+
+    playerCard.style.zIndex = -1;
+
+    computerIcon('reset');
+  });
+}
+
+//--- Utility Functions ---\\
+
+// Position player Icons
+function translateIconPosition(screenSize, group, newIconPosition) {
+  const resetPosition = 'translate(0,0)';
+  const playerCard = document.querySelector('.card-area-left');
 
   if (screenSize === 'large') {
-    selectedIcon.style.position = 'relative';
-    selectedIcon.style.transform = iconPosition;
-    selectedIcon.style.zIndex = 0;
+    group[0].style.transform = newIconPosition;
+    group[0].style.zIndex = 1;
 
-    deselected_A.style.position = 'relative';
-    deselected_A.style.transform = resetPosition;
-    deselected_A.style.zIndex = -1;
+    group[1].style.transform = resetPosition;
+    group[1].style.zIndex = -1;
 
-    deselected_B.style.position = 'relative';
-    deselected_B.style.transform = resetPosition;
-    deselected_B.style.zIndex = -1;
+    group[2].style.transform = resetPosition;
+    group[2].style.zIndex = -1;
+
+    playerCard.style.zIndex = 0;
   }
+
+  else { // small screen
+    group[0].style.transform = resetPosition;
+    group[1].style.transform = resetPosition;
+    group[2].style.transform = resetPosition;
+
+    group[0].style.zIndex = 1;
+    group[1].style.zIndex = 1;
+    group[2].style.zIndex = 1;
+  }
+
 }
 
+// Game Flow :: Time between actions
 function gameFlowPause(callAfter, timeDelay, ...args) {
-
-  // console.log('flowTimer');
   const flowTimer = setTimeout(callAfter, timeDelay, ...args);
   flowTimer;
 }
 
-function playerClassSetter(selectedMove, secondMove, thirdMove, targetClass) {
-  selectedMove.classList.add(targetClass);
-  secondMove.classList.remove(targetClass);
-  thirdMove.classList.remove(targetClass);
+//
+function playerClassSetter(group, targetClass) {
+  group[0].classList.add(targetClass);
+  group[1].classList.remove(targetClass);
+  group[2].classList.remove(targetClass);
 }
 
+//
 function playerStyleSetter(element, property, value) {
   element.style[property] = value;
 }
+
+// New Game of Rock Paper Scissors
+function newGame() {
+  playerSelection();
+}
+
+// Rock Paper Scissors Title-Screen
+function splashScreen() {
+  const startButton = document.querySelector('.start-button');
+
+  startButton.addEventListener('click', () => {
+    const splashScreen = document.querySelector('.splashscreen');
+
+    startButton.style.visibility = 'hidden';
+    splashScreen.style.visibility = 'hidden';
+
+
+    newGame();
+  });
+}
+
+splashScreen();
