@@ -22,135 +22,170 @@
 
   <div class="wrapper">
 
-  <main>
-    <div class="player-aside">
-      <ul class="game-icons player">
-        <li id="js-rock" class="rps-icons selectable">
-          <img class="image-icon js-player-icons" src="images/active8.png" alt="rock game icon" >
-        </li>
-        <li id="js-paper" class="rps-icons selectable">
-          <img class="image-icon js-player-icons" src="images/active11.png" alt="paper game icon" >
-        </li>
-        <li id="js-scissors" class="rps-icons selectable">
-          <img class="image-icon js-player-icons" src="images/passive1.png" alt="scissors game icon" >
+    <div class="winner-popup">
+      <h2 class="popup-title">Game Result</h2>
+      <p class="popup-score">Final Scores</p>
+      <img class="popup-image image-icon avatar pop-icon" src="images/passive2.png" alt="">
+      <p class="popup-message">Display Message</p>
+      <ul class="popup-icons">
+        <li class="pop-options"><p class="popup-options">Would you like to play again?</p></li>
+        <li class="popup-buttons">
+          <i id="yes" class="fa fa-check pop-icon check-box" aria-hidden="true"></i>
+          <i id="no" class="fa fa-times pop-icon check-box" aria-hidden="true"></i>
         </li>
       </ul>
     </div>
 
-    <div class="game-area">
-      <div class="score-board">
-        <ul class="score-ul score-player-ul">
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round1-plr js-point" aria-hidden="true"></i></div>
-          </li>
+    <main>
+      <div class="splashscreen">
+        <div class="splashscreen-items">
+          <div class="game-titles">
+            <h1 class="title">Knights Of Jyenthia</h1>
+            <img class="splashscreen-image" src="/images/active12.png">
+            <p class="subheading">A Rock Paper Scissors Game</p>
+            <div class="start-button">Start Game</div>
+          </div>
+    
+          <div class="credits">
+            <ul class="socials">
+              <li><a class="social-icon" href="https://github.com/mattxmade"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+              <li class="author">mattxmade</li>
+              <li><a class="social-icon" href="https://twitter.com/mattxmade"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>        
+          </div>
+        </div>
+      </div>
 
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round2-plr js-point" aria-hidden="true"></i></div>
+      <div class="player-aside">
+        <ul class="game-icons player">
+          <li id="js-rock" class="rps-icons selectable">
+            <img id="rock" class="image-icon js-player-icons" src="images/active8.png" alt="rock game icon" >
+            <p class="icon-name">ROCK</p>
           </li>
+          <li id="js-paper" class="rps-icons selectable">
+            <img id="paper" class="image-icon js-player-icons" src="images/active11.png" alt="paper game icon" >
+            <p class="icon-name">PAPER</p>
+          </li>
+          <li id="js-scissors" class="rps-icons selectable">
+            <img id="scissors" class="image-icon js-player-icons" src="images/passive1.png" alt="scissors game icon" >
+            <p class="icon-name">SCISSORS</p>
+          </li>
+        </ul>
+      </div>
 
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round3-plr js-point" aria-hidden="true"></i></div>
-          </li>
+      <div class="game-area">
+        <div class="score-board">
+          <ul class="score-ul score-player-ul">
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round1-plr js-point" aria-hidden="true"></i></div>
+            </li>
 
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round4-plr js-point" aria-hidden="true"></i></div>
-          </li>
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round2-plr js-point" aria-hidden="true"></i></div>
+            </li>
+
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round3-plr js-point" aria-hidden="true"></i></div>
+            </li>
+
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round4-plr js-point" aria-hidden="true"></i></div>
+            </li>
+            
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round5-plr js-point" aria-hidden="true"></i></div>
+            </li>
+          </ul>
+
+          <ul class="game-icons">
+            <li class="rps-icons victory-item">
+              <p class="round-number"></p>
+              <img src="images/active6.png" alt="rock game icon" class="image-icon">
+            </li>
+          </ul>
+
+          <ul class="score-ul score-computer-ul">
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round1-com js-point" aria-hidden="true"></i></div>
+
+            </li>
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round2-com js-point" aria-hidden="true"></i></div>
+                
+            </li>
+
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round3-com js-point" aria-hidden="true"></i></div>
+                
+            </li>
+
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round4-com js-point" aria-hidden="true"></i></div>
+                
+            </li>
+
+            <li class="score-point-li">
+              <div class="image-icon"><i class="fa fa-circle-o js-round5-com js-point" aria-hidden="true"></i></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="game-board">
+          <ul class="card-area card-area-left dualMode">
+            <li class="card card__play">
+              <div class="card__inner">
+                <div class="game-box empty-A"></div>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="card-area dualMode flip-card">
+            <li class="card card__comp">
+              <div class="card__inside">
           
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round5-plr js-point" aria-hidden="true"></i></div>
-          </li>
-        </ul>
-
-        <ul class="game-icons">
-          <li class="rps-icons victory-item">
-            <img src="images/passive3.png" alt="rock game icon" class="image-icon">
-          </li>
-        </ul>
-
-        <ul class="score-ul score-computer-ul">
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round1-com js-point" aria-hidden="true"></i></div>
-
-          </li>
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round2-com js-point" aria-hidden="true"></i></div>
-              
-          </li>
-
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round3-com js-point" aria-hidden="true"></i></div>
-              
-          </li>
-
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round4-com js-point" aria-hidden="true"></i></div>
-              
-          </li>
-
-          <li class="score-point-li">
-            <div class="image-icon"><i class="fa fa-circle-o js-round5-com js-point" aria-hidden="true"></i></div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="game-board">
-        <ul class="card-area card-area-left dualMode">
-          <li class="card card__play">
-            <div class="card__inner">
-              <div class="game-box empty-A"></div>
-            </div>
-          </li>
-        </ul>
-
-        <ul class="card-area dualMode flip-card">
-          <li class="card card__comp">
-            <div class="card__inside">
-        
-              <div class="card__face card__face--front">
-                <!-- <h2>?</h2> -->
-                <!-- <div class="game-box empty-B"></div> -->
-              </div>
-        
-              <div class="card__face card__face--back">
-        
-                <div class="card__content">
-                  <div class="card__header">
-                    <img src="images/active5.png" alt="" class="pp">
-                  </div>
-        
-                  <div class="card__body">
-                    <!-- <h3>CPU RPS</h3> -->
-                    <p id="reveal-winner-A"></p>
-                    <p id="reveal-winner-B"></p>
-                  </div>
-                  
+                <div class="card__face card__face--front">
                 </div>
+          
+                <div class="card__face card__face--back">
+          
+                  <div class="card__content">
+                    <div class="card__header">
+                      <img src="images/active5.png" alt="" class="pp">
+                    </div>
+          
+                    <div class="card__body">
+                      <p id="reveal-winner-A"></p>
+                      <p id="reveal-winner-B"></p>
+                    </div>
+                    
+                  </div>
+                </div>
+          
               </div>
-        
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
-    </div>
+      <div class="computer-aside">
+        <ul class="game-icons computer">
+          <li class="rps-icons avatar">
+            <img src="images/passive2.png" alt="computer avatar" class="image-icon">
+          </li>
+          <li class="rps-icons js-computer-icon dualMode">
+            <i class="fa fa-question" aria-hidden="true"></i>
+            <img src="images/flip_empty.png" alt="computer choice" class="image-icon">
+            <p>CPU CHOICE</p>
+          </li>
+        </ul>
+        
+      </div>
 
-    <div class="computer-aside">
-      <ul class="game-icons computer">
-        <li class="rps-icons avatar">
-          <img src="images/passive2.png" alt="computer avatar" class="image-icon">
-        </li>
-        <li class="rps-icons js-computer-icon dualMode">
-          <i class="fa fa-question" aria-hidden="true"></i>
-          <img src="images/flip_empty.png" alt="computer choice" class="image-icon">
-        </li>
-      </ul>
-      
-    </div>
-
-    <!-- <div class="optionsCont" onclick="sayHello()">
-      <i class="fa fa-gamepad" aria-hidden="true"></i>
-    </div> -->
-  </main>
+      <!-- <div class="optionsCont" onclick="sayHello()">
+        <i class="fa fa-gamepad" aria-hidden="true"></i>
+      </div> -->
+    </main>
 
 </div>
   
