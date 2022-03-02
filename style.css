@@ -28,8 +28,6 @@ html {
 }
 
 body {
-  height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,14 +390,16 @@ i.fa {
   position: absolute;
   z-index: 100;
 
-  width: 95vw;
-  height: 95vh;
-
   border-radius: 0.5rem;
   background-color: #3f2f35;
 
   visibility: hidden;
   transition: 0.3s;
+}
+
+.winner-popup {
+  width: 95%;
+  height: 95%;
 }
 
 .pop-icon {
@@ -429,6 +429,7 @@ i.fa {
 p.popup-score {
   font-size: 2rem;
   padding: 0.5rem;
+  text-align: center;
 }
 
 .splashscreen .author,
@@ -438,7 +439,7 @@ p.popup-score {
 
 .splashscreen .subheading,
 p.popup-message {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-family: 'Syne Tactile', cursive;
 }
 
@@ -482,15 +483,18 @@ p.popup-message {
 .splashscreen {
   visibility: visible;
   border-radius: 0;
-  width: 100vw;
-  height: 100vh;
+
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .splashscreen-items {
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .splashscreen-fade-out {
@@ -498,10 +502,11 @@ p.popup-message {
 }
 
 .splashscreen .game-titles {
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
+  justify-content: space-evenly;
 
   text-align: center;
 }
@@ -511,7 +516,6 @@ p.popup-message {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  padding: 6px;
   user-select: none;
 }
 
@@ -520,10 +524,8 @@ p.popup-message {
 }
 
 .splashscreen img {
-  width: 256px;
+  width: 228px;
   height: auto;
-
-  margin: 0 0 1.2rem;
 
   border-radius: 0.5rem;
   outline: 0 solid transparent;
@@ -558,6 +560,7 @@ p.popup-message {
 }
 
 .splashscreen .credits {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -565,14 +568,16 @@ p.popup-message {
 }
 
 .splashscreen .author {
+  align-self: flex-end;
   color: turquoise;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .splashscreen ul {
-  list-style: none;
-  
+  width: 100%;
   display: flex;
+  list-style: none;
+  justify-content: space-between;
 }
 
 .splashscreen li {
@@ -581,6 +586,7 @@ p.popup-message {
 
 .splashscreen i.fa {
   position: relative;
+  font-size: 2.5rem;
 }
 
 /*=========
@@ -730,5 +736,16 @@ p.popup-message {
   }
   .card__inner {
     padding: 1rem;
+  }
+  .splashscreen,
+  .winner-popup {
+    height: 100vh;
+  }
+}
+
+@media (max-height: 600px) and (max-height: 695px) {
+  .splashscreen,
+  .winner-popup {
+    height: auto;
   }
 }
