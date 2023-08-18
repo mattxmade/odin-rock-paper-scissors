@@ -597,10 +597,7 @@ function splashScreen() {
   startButton.addEventListener('click', () => {
     const splashScreen = document.querySelector('.splashscreen');
 
-    startButton.style.visibility = 'hidden';
-    splashScreen.style.visibility = 'hidden';
-
-
+    splashScreen.remove();
     newGame();
   });
 }
